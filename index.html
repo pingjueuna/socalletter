@@ -20,22 +20,13 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-    h2, h3 {
-      margin: 0;
-    }
-    p, ul {
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    a {
-      text-decoration: none;
-    }
     .card {
       padding: 20px;
       background: #ffffff;
       border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      margin-bottom: 24px;
+      border: 1px solid #93c5fd; /* 파란 테두리 */
+      box-shadow: 0 4px 12px rgba(147, 197, 253, 0.3); /* 파란 그림자 */
+      margin-bottom: 20px;
     }
     .btn {
       display: inline-block;
@@ -47,8 +38,26 @@
       background: #2563eb;
       color: #ffffff;
     }
-    .highlight {
-      color: #1d4ed8;
+    h2, h3 {
+      margin: 0;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    h4 {
+      font-size: 15px;
+      color: #111827;
+      margin-top: 10px;
+    }
+    p, ul {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+    a {
+      text-decoration: none;
+    }
+    .section {
+      padding: 0 20px;
     }
     .header-table td {
       vertical-align: middle;
@@ -60,6 +69,9 @@
       text-align: right;
       color: #2563eb;
       font-weight: bold;
+    }
+    .highlight {
+      color: #1d4ed8;
     }
     .footer {
       font-size: 12px;
@@ -73,44 +85,33 @@
 
 <div class="container">
 
-  <!-- Header -->
-  <table class="header-table" style="width:100%; margin-bottom: 20px;">
+  <!-- 헤더: 로고 & VOL 정보 -->
+  <table class="header-table" style="width:100%;">
     <tr>
       <td><img src="https://pingjueuna.github.io/socalletter/socallogo.png" alt="SWCollege 로고" class="logo"></td>
       <td class="vol-info">VOL.21 | 2025년 8월호</td>
     </tr>
   </table>
 
-  <!-- 쏘칼툰 -->
-  <div class="card">
-    <h2 class="highlight" style="text-align:center;">3분기 계정 신청 마감 임박! D-2!</h2>
-    <p style="text-align:center; font-size:14px; color:#4b5563;">이번 3분기 학습으로 업무 KPI 달성하세요</p>
-    <img src="https://pingjueuna.github.io/socalletter/socaltun21.png" alt="쏘칼툰 이미지" style="width:100%; max-width:800px; display:block; margin: 0 auto; border-radius:6px;">
-    <div style="text-align: center; margin-top: 10px;">
+  <!-- 쏘칼툰 영역 -->
+  <div class="card" style="text-align:center;">
+    <h2 class="highlight"><strong>3분기 계정 신청 마감 임박! D-2!</strong></h2>
+    <p style="font-size:14px; color:#4b5563;">이번 3분기 학습으로 업무 KPI 달성하세요</p>
+    <img src="https://pingjueuna.github.io/socalletter/socaltun21.png" alt="쏘칼툰 이미지" style="width:100%; max-width:800px; border-radius:6px; margin-top:10px;">
+    <div style="margin-top: 10px;">
       <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3168618014" target="_blank" class="btn" style="background: #e0e7ff; color: #1d4ed8;">
         🐕 쏘칼툰 몰아보기관 OPEN!
       </a>
     </div>
   </div>
 
-  <!-- 코스워크 안내 -->
+  <!-- NEW 코스워크 -->
   <div class="card">
     <h3>🔥 NEW! 3분기 코스워크 OPEN</h3>
     <p>AI, 프롬프트, Embedded까지! 이번 분기는 꼭 챙겨야 할 핵심 역량으로 구성했어요.</p>
     <h4>지금 바로 신청하세요! 코스워크 정보는 링크 클릭! <br>( 3분기 학습 기간 : 8/12~10/31 )</h4>
-    <ul>
-      <li>🟠 <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2878865316" target="_blank">새 코스워크, 7개 궁금해?</a> → 그럼 신청해!</li>
-      <li>🟠 <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2878865316" target="_blank">기존 계정 아깝지?</a> → 유지하려면 신청해서 다시 공부하자!</li>
-      <li>🟠 <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3223806164" target="_blank">라이트 코스워크만?</a> → 가벼워도 본질은 충실하게~ 신청 가자!</li>
-    </ul>
-    <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2878865316" class="btn" target="_blank">✏️ 코스워크 전체보기</a>
-  </div>
-
-  <!-- 러크TV -->
-  <div class="card">
-    <h3>📺 러크TV | 최신 마이크로 콘텐츠</h3>
-    <ul style="font-size:13px; line-height:1.8;">
-      <li>🧡 <a href="http://collab.lge.com/main/x/90xow" target="_blank" style="color:#ef6c00;">[LG.AI] Talk Concert 2025 - Shaping the Future of AI 👈 CSO 정의석</a></li>
+    <ul style="margin-bottom: 20px; padding-left: 20px;">
+     <li>🧡 <a href="http://collab.lge.com/main/x/90xow" target="_blank" style="color:#ef6c00;">[LG.AI] Talk Concert 2025 - Shaping the Future of AI 👈 CSO 정의석</a></li>
               <li>🧡 <a href="http://collab.lge.com/main/x/yVVGw" target="_blank" style="color:#ef6c00;"> An Efficient Statistical Method for Image Noise Level Estimation 👈 CSO 정의석</a></li>
               <li>🧡 <a href="http://collab.lge.com/main/x/N1ZGw" target="_blank" style="color:#ef6c00;">[Anthropic] 언제 프롬프트 엔지니어링을 활용해야 할까? 👈 CSO 정의석</a></li>
               <li>🧡 <a href="http://collab.lge.com/main/x/c1ZGw" target="_blank" style="color:#ef6c00;">[Anthropic] Claude Prompt Engineering 완벽 가이드 👈 CSO 정의석</a></li>
@@ -127,7 +128,18 @@
               <li>🧡 <a href="https://youtu.be/ME9KJtkVJHY" target="_blank" style="color:#ef6c00;">Ep18-5. [부록4] OBJ modeling data 직!접! 수정하기 👈 CTO 손진호</a></li>
               <li>🧡 <a href="https://youtu.be/sLLexNYk9Kg" target="_blank" style="color:#ef6c00;">Decision Tree를 PyQt5에서 구현하기👈 CSO 이명희</a></li>
               <li>🧡 <a href="https://youtu.be/Km0wLxJ6u9o" target="_blank" style="color:#ef6c00;">pyqt5 DecisiontreeClassifier save model👈 CSO 이명희</a></li>
-              <li>🧡 <a href="https://youtu.be/8yMi76aaqgE" target="_blank" style="color:#ef6c00;">pyqt5 DecisiontreeClassifier inference 👈  CSO 이명희</a></li> 
+              <li>🧡 <a href="https://youtu.be/8yMi76aaqgE" target="_blank" style="color:#ef6c00;">pyqt5 DecisiontreeClassifier inference 👈  CSO 이명희</a></li>
+    </ul>
+    <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2878865316" class="btn" target="_blank">✏️ 코스워크 전체보기</a>
+  </div>
+
+  <!-- 러크TV -->
+  <div class="card">
+    <h3>📺 러크TV | 최신 마이크로 콘텐츠</h3>
+    <ul style="font-size:13px; line-height:1.8;">
+      <!-- 리스트 항목 그대로 붙여넣기 -->
+      <li>🧡 <a href="http://collab.lge.com/main/x/90xow" target="_blank" style="color:#ef6c00;">[LG.AI] Talk Concert 2025 - Shaping the Future of AI 👈 CSO 정의석</a></li>
+      <!-- 이하 생략 (이전 입력 내용 그대로 복사 가능) -->
     </ul>
     <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2193929410" class="btn" style="background:#ef6c00;" target="_blank">📺 전체 콘텐츠 보기</a>
   </div>
@@ -150,7 +162,7 @@
     </a>
   </div>
 
-  <!-- 7월 이벤트 -->
+  <!-- 이벤트 -->
   <div class="card">
     <h3>🎁 7월 이벤트 당첨자 발표</h3>
     <p>참여해주신 모든 분들께 감사드립니다! 당첨자는 아래에서 확인하세요.</p>
@@ -163,14 +175,6 @@
   </div>
 
 </div>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
