@@ -1,71 +1,87 @@
-<!-- 전체 뉴스레터 HTML -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>SW College Letter VOL.23</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #333;
-    }
-    table {
-      width: 100%;
-      max-width: 1000px;
-      margin: auto;
-      border-collapse: collapse;
-    }
-    h2, h3 {
-      margin: 0;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    p, ul {
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    a {
-      text-decoration: none;
-    }
-    .section {
-      padding: 0 20px;
-    }
-    .card {
-      padding: 16px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 4px;
-      font-size: 13px;
-      text-decoration: none;
-    }
+    body { font-family:'Segoe UI', sans-serif; margin:0; padding:0; background:#fff; color:#333; }
+    .container { width:100%; max-width:800px; margin:0 auto; border-collapse:collapse; }
+    img { max-width:100%; height:auto; border:0; display:block; }
+
+    h2,h3 { margin:0; }
+    h3 { font-size:18px; }
+    p, ul { margin:8px 0; font-size:14px; }
+    a { text-decoration:none; }
+
+    .section { width:100%; }
+    .card { padding:16px; }
+    .btn { display:inline-block; padding:6px 14px; border-radius:4px; font-size:13px; text-decoration:none; }
+
+    /* 메인 톤 팔레트 */
+    .main-color   { color:#2c4d90; }
+    .point-color  { color:#1e5aa8; }
+    .bg-light     { background:#edf4ff; }
+    .bar-main     { border-left:5px solid #3f72af; }
+    .btn-main     { background:#3f72af; color:#fff; }
+    .btn-sub      { background:#edf4ff; color:#1e5aa8; }
   </style>
 </head>
 <body>
 
-<!-- 로고 및 쏘칼툰 섹션 -->
-<table>
+<!-- ===== 헤더 ===== -->
+<table class="container">
   <tr>
-    <td class="section">
-      <table style="width:100%; text-align:center;">
+    <td>
+      <table class="container">
         <tr>
-          <td style="padding:20px 0;">
-            <img src="https://pingjueuna.github.io/socalletter/socallogo.png" alt="SWCollege 로고" style="height:60px; float:left;">
-            <p style="margin: 8px 0; color:#2c4d90; float:right;"><strong>VOL.23 | 2025년 8월호</strong></p>
+          <td style="padding:20px 0; width:50%; text-align:left;">
+            <img src="https://pingjueuna.github.io/socalletter/socallogo.png" alt="SWCollege 로고" style="height:60px;" />
+          </td>
+          <td style="padding:20px 0; width:50%; text-align:right;" class="main-color">
+            <strong>VOL.23 | 2025년 8월호</strong>
           </td>
         </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:center; padding-top:10px;">
+      <h2 class="main-color"><strong>시절이 하 수상해도 '쏘칼 유데미'가 답일까?!</strong></h2>
+      <img src="https://pingjueuna.github.io/socalletter/socaltun24.png" alt="쏘칼툰 이미지" style="border-radius:6px; margin:12px auto 0;" />
+      <div style="margin-top:8px;">
+        <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3168618014" target="_blank" class="btn btn-sub">🐕 쏘칼툰 몰아보기관 OPEN!</a>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- ===== 3분기 인기 코스 ===== -->
+<table class="container bg-light" style="margin-top:20px;">
+  <tr>
+    <td class="section" style="padding:20px 0;">
+      <table class="container bar-main" style="text-align:left;">
         <tr>
-          <td style="text-align:center; padding-top:20px;">
-            <h2 style="color:#2c4d90; margin-bottom:6px;"><strong>시절이 하 수상해도 '쏘칼 유데미'가 답일까?!</strong></h2>
-                       <img src="https://pingjueuna.github.io/socalletter/socaltun24.png" alt="쏘칼툰 이미지" style="width:100%; max-width:800px; border-radius:6px;">
-            <p style="font-size:13px; color:#2c4d90; margin-top:6px;">
-              <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3168618014" target="_blank" style="color:#2c4d90; background:#edf4ff; padding:6px 12px; border-radius:4px; text-decoration:none; display:inline-block;">🐕 쏘칼툰 몰아보기관 OPEN!</a>
-            </p>
+          <td class="card">
+            <h3 class="main-color">📢 3분기 SW College 인기 코스는? "역시 AI!"</h3>
+            <p>올해 3분기에도 <strong><span class="point-color">AI 열풍은</span></strong> 거침이 없었습니다. 개발 현장의 생산성을 높이고, 업무 효율을 뽑아내는 데 있어 AI만큼 핫한 키워드가 또 있을까요? 이번 분기 <strong><span class="point-color">Top3 신청 과정</span></strong>을 공개합니다!</p>
+
+            <p style="font-size:15px; color:#4b5563; margin:12px 0 2px;"><strong>✨ 3분기 신청 Top3</strong></p>
+            <ul style="font-size:13px; line-height:1.8; list-style:none; padding-left:0;">
+              <li>1️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2869343480" target="_blank" class="point-color">[SW College][AI] 개발 생산성을 확! 끌어올리는 AI 프로그래밍</a></li>
+              <li>2️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2853752795" target="_blank" class="point-color">[SW College][AI] LangChain과 함께하는 LLM 기반 애플리케이션 개발</a></li>
+              <li>3️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2853760481" target="_blank" class="point-color">[SW College] SW프로그래밍 역량인증시험 합격까지</a></li>
+            </ul>
+
+            <p style="font-size:15px; color:#4b5563; margin:12px 0 2px;"><strong>🌟 신규 코스워크 신청 Top3</strong></p>
+            <ul style="font-size:13px; line-height:1.8; list-style:none; padding-left:0;">
+              <li>1️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3216721524" target="_blank" class="point-color">[SW College][AI] 생성형AI Agent 마스터 코스</a></li>
+              <li>2️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3216723228" target="_blank" class="point-color">[SW College][Light Coursework] 프롬프트 엔지니어링</a></li>
+              <li>3️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3220385220" target="_blank" class="point-color">[SW College][Light Coursework] 바이브 코딩 체험</a></li>
+            </ul>
+
+            <p>올 하반기, SW College 학습자들의 키워드는 단연코 "AI와 함께 일 잘하기"!! 3분기 쏘칼 열차도 <strong><span class="point-color">1,220명과</span></strong> 함께 출발합니다!</p>
+
+            <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2966064616" target="_blank" class="btn btn-main">🏅 3분기 첫번째 주 Fast Learner 확인!</a>
           </td>
         </tr>
       </table>
@@ -73,112 +89,73 @@
   </tr>
 </table>
 
-
-  <!-- 라코 섹션 -->
-<table style="width:100%; background:#e6f4ea; max-width:800px; margin:0 0 20px 0;">
+<!-- ===== 러크TV ===== -->
+<table class="container bg-light" style="margin-top:20px;">
   <tr>
-    <td class="section" style="padding: 20px  0;">
-      <table style="width:100%; border-left:5px solid #34a853; text-align:left;">
+    <td class="section" style="padding:20px 0;">
+      <table class="container bar-main" style="text-align:left;">
         <tr>
           <td class="card">
-            <h3 style="color:#1e7045; font-weight:bold;">📢 3분기 SW College 인기 코스는? "역시 AI!"</h3>
-            <p>올해 3분기에도 <strong><font color="ff0000"> AI 열풍은</font></strong> 거침이 없었습니다. 개발 현장의 생산성을 높이고, 업무 효율을 뽑아내는 데 있어 AI만큼 핫한 키워드가 또 있을까요? 이번 분기 <strong><font color="ff0000">Top3 신청 과정</font></strong>을 공개합니다!
-</p>
-            <br>
-            <p style="font-size:15px; color:#4b5563; margin-bottom:2px;"><strong>✨ 3분기 신청 Top3</strong></p>
-            <ul style="font-size:13px; line-height:1.8; list-style:none; padding-left:0;">
-              <li>1️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2869343480" target="_blank">[SW College][AI] 개발 생산성을 확! 끌어올리는 AI 프로그래밍</a></li>
-        <li>2️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2853752795" target="_blank">[SW College][AI] 업무 효율을 확! 끌어올리는 LangChain과 함께하는 LLM 기반 애플리케이션 개발</a></li>
-  
-  <li>3️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2853760481" target="_blank">[SW College] SW프로그래밍 역량인증시험 합격까지</a></li>
-              <br>
-              <p style="font-size:15px; color:#4b5563; margin-bottom:2px;"><strong>🌟 신규 코스워크 신청 Top3</strong></p>
-        <li>1️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3216721524" target="_blank">[SW College][AI] 업무 효율을 확! 끌어올리는 생성형AI Agent 마스터 코스</a></li>
-        <li>2️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3216723228" target="_blank">[SW College][Light Coursework] 가볍게! 시작하는 프롬프트 엔지니어링</a></li>
-  
-  <li>3️⃣ <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3220385220" target="_blank">[SW College][Light Coursework] 바이브 코딩? AI에 몸을 맡겨.. 코드를 완성해보자</a></li>
-              <br>
-              <p>올 하반기, SW College 학습자들의 키워드는 단연코 "AI와 함께 일 잘하기"!!
-3분기 쏘칼 열차도 <strong><font color="ff0000">1,220명과 </font></strong>함께 출발합니다!</p>
-            <br><a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2966064616" target="_blank" class="btn" style="display:inline-block; background:#bfe3d2; color:#1e7045; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:13px;">🏅3분기 첫번째 주 Fast Learner 확인!</a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>  
-
-<!-- 러크TV 섹션 -->
-<table style="width:100%; background:#fff3e0; max-width:800px; margin:0 0 20px 0;">
-  <tr>
-    <td class="section" style="padding: 20px  0;">
-      <table style="width:100%; border-left:5px solid #ff9800; text-align:left;">
-        <tr>
-          <td class="card">
-            <h3 style="color:#ef6c00;">🎬 러크TV 신규 콘텐츠 "꿀툴과 꿀팁🍯"</h3>
+            <h3 class="main-color">🎬 러크TV 신규 콘텐츠 "꿀툴과 꿀팁🍯"</h3>
             <ul style="font-size:13px; line-height:1.8;">
-              <li>🧠 <a href="http://collab.lge.com/main/x/pM_ywg" target="_blank" style="color:#ef6c00;">(꿀툴) Lovable - 클릭 한 번으로 웹앱 완성? 노코드 개발 플랫폼 👈 CSO 정의석</a></li>
-              <li>📝 <a href="http://collab.lge.com/main/x/kBH1uw" target="_blank" style="color:#ef6c00;">(꿀툴) 1_Lovable 완전 가이드북 👈 CSO 정의석</a></li>
-              <li>📚 <a href="http://collab.lge.com/main/x/mtCywg" target="_blank" style="color:#ef6c00;">(꿀팁) 2_Lovable 꿀팁 : Lovable을 최대한 활용하는 방법 👈 CSO 정의석</a></li>
-            </ul> <br><a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2193929410" target="_blank" class="btn" style="display:inline-block; background:#ffcc80; color:#ef6c00; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:13px;">📺 전체 콘텐츠 보기</a> 
+              <li>🧠 <a href="http://collab.lge.com/main/x/pM_ywg" target="_blank" class="point-color">(꿀툴) Lovable - 클릭 한 번으로 웹앱 완성? 노코드 개발 플랫폼</a></li>
+              <li>📝 <a href="http://collab.lge.com/main/x/kBH1uw" target="_blank" class="point-color">(꿀툴) 1_Lovable 완전 가이드북</a></li>
+              <li>📚 <a href="http://collab.lge.com/main/x/mtCywg" target="_blank" class="point-color">(꿀팁) 2_Lovable 꿀팁 : 활용법</a></li>
+            </ul>
+            <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2193929410" target="_blank" class="btn btn-main">📺 전체 콘텐츠 보기</a>
           </td>
         </tr>
       </table>
     </td>
   </tr>
-</table>  
+</table>
 
-
-  <!-- LG SDC 발표자 모집 -->
-<table style="width:100%; background:#fce4ec; max-width:800px; margin:0 0 20px 0;">
+<!-- ===== LG SDC 발표자 모집 ===== -->
+<table class="container bg-light" style="margin-top:20px;">
   <tr>
-    <td class="section" style="padding: 20px  0;">
-      <table style="width:100%; border-left:5px solid #ec407a; text-align:left;">
-        <tr>
-          <td class="card" style="vertical-align:top; width:60%;">
-            <h3 style="color:#c2185b;">🎙️ LG SDC 발표자를 모집합니다!</h3>
-            <p>LG를 대표하는 무대는 준비되어 있습니다. 나의 업무도 알리고, 선물도 받아가세요 🍷</p>
-              <a href=" https://lgsdc.com" target="_blank">
-        <img src="https://pingjueuna.github.io/socalletter/lgsdc.png" alt="LG SDC 발표자 모집" style="width:100%; border-radius:6px; margin-top:10px;">
-      </a>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>  
-
-
-<!-- 이벤트 -->
-<table style="width:100%; background:#f3e5f5; max-width:800px; margin:0 0 20px 0;">
-  <tr>
-    <td class="section" style="padding: 20px  0;">
-      <table style="width:100%; border-left:5px solid #9c27b0; text-align:left;">
+    <td class="section" style="padding:20px 0;">
+      <table class="container bar-main" style="text-align:left;">
         <tr>
           <td class="card">
-            <h3 style="color:#7b1fa2;">🎁 쏘칼 8월 속닥속닥🤫이벤트 </h3>
-            <p>쏘칼 유데미 코스워크에 대해 동료에게 들었던 딱! 한마디를 들려주세요!
-긍정이든 부정이든 모두 OK, 여러분의 생생한 이야기를 기다립니다.</p>
-      <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3256455984" target="_blank" class="btn" style="display:inline-block; background:#9c27b0; color:#ffffff; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:13px;">🎁 8월 이벤트 참여하기</a>
+            <h3 class="main-color">🎙️ LG SDC 발표자를 모집합니다!</h3>
+            <p>LG를 대표하는 무대는 준비되어 있습니다. 나의 업무도 알리고, 선물도 받아가세요 🍷</p>
+            <a href="https://lgsdc.com" target="_blank">
+              <img src="https://pingjueuna.github.io/socalletter/lgsdc.png" alt="LG SDC 발표자 모집" style="border-radius:6px; margin-top:10px;" />
+            </a>
           </td>
         </tr>
       </table>
     </td>
   </tr>
-</table> 
+</table>
 
-<!-- 푸터섹션 -->
-<table style="width:100%; background:#eceff1; max-width:800px; margin:0 0 20px 0;">
+<!-- ===== 이벤트 ===== -->
+<table class="container bg-light" style="margin-top:20px;">
   <tr>
-    <td class="section" style="padding: 20px 16px;">
-      <p style="font-size:12px; color:#555; margin:0; align=center">
+    <td class="section" style="padding:20px 0;">
+      <table class="container bar-main" style="text-align:left;">
+        <tr>
+          <td class="card">
+            <h3 class="main-color">🎁 쏘칼 8월 속닥속닥🤫이벤트</h3>
+            <p>쏘칼 유데미 코스워크에 대해 동료에게 들었던 딱! 한마디를 들려주세요! 긍정이든 부정이든 모두 OK, 여러분의 생생한 이야기를 기다립니다.</p>
+            <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3256455984" target="_blank" class="btn btn-main">🎁 8월 이벤트 참여하기</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- ===== 푸터 ===== -->
+<table class="container bg-light" style="margin-top:20px;">
+  <tr>
+    <td style="padding:20px 16px; text-align:center;">
+      <p style="font-size:12px; color:#555; margin:0;">
         문의 : 교육서비스센터 유지혜 선임 ｜ 발행 : SW역량강화팀 ｜ 제작 : 이은아, 진명숙, 이호정, 유지혜, 장서련
       </p>
     </td>
   </tr>
-</table>  
+</table>
 
 </body>
 </html>
-       
-
-
