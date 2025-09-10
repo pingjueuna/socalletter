@@ -1,82 +1,200 @@
 <!DOCTYPE html>
-<li><a href="http://collab.lge.com/main/x/Kuphx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – arxiv-paper-saver</a></li>
-<li><a href="http://collab.lge.com/main/x/MOphx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – emoji-library</a></li>
-<li><a href="http://collab.lge.com/main/x/Wv5hx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – exaone-prompt-hub</a></li>
-<li><a href="http://collab.lge.com/main/x/UYGYx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – make-tables-to-code</a></li>
-</ul>
-<a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2193929410" class="btn" target="_blank" rel="noopener noreferrer">러크TV 전체 보기</a>
-</section>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>SW College Letter VOL.26</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg: #f0f2ed;
+      --surface: #ffffff;
+      --ink: #1e201c;
+      --muted: #444840;
+      --olive: #546648;
+      --olive-deep:#2f3c2a;
+      --accent:#a1783f;
+      --accent-light:#c4904f;
+      --pill:#e3e7de;
+      --line:#d2d6cf;
+      --shadow: 0 6px 18px rgba(22,28,25,0.12);
+    }
 
+    * { box-sizing: border-box; }
+    body{
+      margin:0; padding:0;
+      font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Roboto,Helvetica,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
 
-<!-- 쏘칼러 추천 강의 -->
-<section class="card">
-<h3>📢 쏘칼러 추천 강의</h3>
-<h4>VS본부 ‘팀 AI돌’ 추천 – 시계열 예측·파이썬 심화</h4>
-<p>로또 3등 예측로 검증된 시계열 예측 심화부터 과학 계산 프로그래밍까지, 지금 바로 클릭!</p>
-<ul class="list-tight">
-<li><a href="https://lg.udemy.com/course/forecasting-python/" target="_blank" rel="noopener noreferrer">Master Time Series Analysis and Forecasting with Python 2025</a></li>
-<li><a href="https://lg.udemy.com/course/250-timeseries-kor-sub-top-100/" target="_blank" rel="noopener noreferrer">[한글 자막] 시계열 데이터 분석 with 파이썬</a></li>
-<li><a href="https://lg.udemy.com/course/computational-physics/" target="_blank" rel="noopener noreferrer">Computational Physics: Scientific Programming with Python</a></li>
-</ul>
-</section>
+    .container{
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
 
+    .header-table{ width:100%; border-collapse: collapse; }
+    .header-table td{ vertical-align: middle; padding: 0; }
+    .logo{ height: 56px; }
+    .vol-info{
+      text-align:right; font-weight:700; letter-spacing:.2px;
+      color: var(--olive);
+    }
 
-<!-- Fast Learner -->
-<section class="card">
-<h3>🏃 3분기 Fast Learner</h3>
-<p>이번 주 <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3291779820" target="_blank" rel="noopener noreferrer">쏘칼 학습 인증 이벤트🍁</a>에서는 ‘피곤함·드라마·이슈’ 등 각자의 학습 데몬 고백이 이어졌습니다. 드라마, 업무 이슈를 넘어 러닝 루틴을 지켜낸 모든 분을 응원합니다. 이번 주 학습 1위는 <strong>HS 정상훈 선임</strong>! Top10이 궁금하다면 지금 확인하세요.</p>
-<a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2966064616" class="btn" target="_blank" rel="noopener noreferrer">🏅 Fast Learner Ranking Board</a>
-</section>
+    .card{
+      padding: 20px;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
 
+    /* 버튼: 전부 통일된 그라데이션 스타일 */
+    .btn{
+      display:inline-block; padding: 10px 16px; border-radius: 8px;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color:#fff;
+      box-shadow: 0 4px 12px rgba(161,120,63,0.3);
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      transform: translateY(-1px);
+    }
 
-<!-- 필수 자료 -->
-<section class="card">
-<h3>📚 쏘칼 Pick! SW 개발자 필수 자료</h3>
-<ol class="list-tight">
-<p>항상 바쁜 SW 개발자를 위해 <strong>AISE</strong>가 개발 산출물 생성과 개발자 액션을 웹에서 자동화합니다.</p>
-<li>AI로 시작하는 SRS / Test Case 생성</li>
-<li>정적 분석 결함 수정 <em>Change</em>를 즉시 조회</li>
-<li>프로젝트 SW 아키텍처 빠른 분석</li>
-<li>코드로부터 Unit Design 자동 생성</li>
-<li>Code 품질, Code X-ray로 빠른 피드백</li>
-<li>복잡한 오픈소스 라이선스 — 분석 결과 기반 해석까지!</li>
-</ol>
-<a href="https://aise.lge.com" class="btn" target="_blank" rel="noopener noreferrer">AISE 바로가기</a>
-</section>
+    h2,h3{ margin:0 0 6px 0; }
+    h3{ font-size: 18px; font-weight:800; color: var(--olive-deep); }
+    h4{ margin:8px 0 6px; font-size:15px; color: var(--muted); font-weight:700; }
+    p, ul, ol{ margin:8px 0; font-size: 14px; }
+    a{ text-decoration: none; color: inherit; }
 
+    .highlight{ color: var(--olive-deep); }
+    .subtle{ color: var(--muted); font-size:13px; }
+    .list-tight{ padding-left: 18px; }
+    .list-tight li{ line-height: 1.7; }
 
-<!-- PMC -->
-<section class="card">
-<h3>🎙️ LG SW PM Competition 2025 본선 참가자</h3>
-<p>치열했던 예선을 통과하고, 우승🏆을 향해 달려가는 7개 팀의 본선 진출을 응원해주세요.<br> (MS본부 3팀, VS 1팀, 생기원 1팀, CSO 1팀, LG유플러스 1팀)</p>
-<a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3277493784" target="_blank" rel="noopener noreferrer">
-<img src="https://pingjueuna.github.io/socalletter/pmclogo2025.png" alt="LG SW PM Competition 2025 본선 안내 이미지" class="img-soft" style="max-width:100%; height:auto;" />
-</a>
-</section>
+    .pill{
+      display:inline-block; font-size:12px; font-weight:700;
+      background: var(--pill); color: var(--olive-deep);
+      padding: 4px 10px; border-radius: 999px; border:1px solid var(--line);
+    }
 
+    .divider{ height:1px; background: var(--line); margin: 14px 0; }
 
-<!-- SDC -->
-<section class="card">
-<h3>🎙️ LG SDC 2025 사전 참가자 모집</h3>
-<p>아직 늦지 않았어요! 사전 신청하고 기념품🎁도 받아가세요. <br> LG SW 개발자라면 누구나 쉽게 등록할 수 있으며, 다채로운 프로그램과 이벤트가 준비되어 있습니다.</p>
-<a href="https://lgsdc.com" target="_blank" rel="noopener noreferrer">
-<img src="https://pingjueuna.github.io/socalletter/lgsdc2.png" alt="LG SDC 2025 참가 신청 이미지" class="img-soft" style="max-width:100%; height:auto;" />
-</a>
-</section>
+    .img-soft{
+      width:100%; max-width:800px; border-radius:10px;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 20px rgba(22,28,25,0.12);
+    }
 
+    .footer{ font-size:12px; color: var(--muted); text-align:center; margin-top: 36px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 헤더 -->
+    <table class="header-table" role="presentation" aria-label="헤더">
+      <tr>
+        <td><img src="https://pingjueuna.github.io/socalletter/socallogo.png" alt="SW College 로고" class="logo" /></td>
+        <td class="vol-info">VOL.26 | 2025년 9월 가을호</td>
+      </tr>
+    </table>
 
-<!-- 이벤트 -->
-<section class="card">
-<h3>🌿 쏘칼 9월 이벤트</h3>
-<p>오프라인 교육이 필요했던 순간, 온라인 실습이 잘 됐던 비결을 들려주세요. <br> 쏘칼은 여러분의 모든 목소리를 기다리고 있습니다 with 🎁</p>
-<a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3288218356" class="btn" target="_blank" rel="noopener noreferrer">이벤트 참여하기</a>
-</section>
+    <!-- 쏘칼툰 -->
+    <section class="card" style="text-align:center;">
+      <div class="pill" aria-label="하이라이트 배지">🍂 금주의 하이라이트</div>
+      <h2 class="highlight" style="margin-top:12px;"><strong>쏘칼 × 유데미 학습을 방해하는 데몬들의 습격</strong></h2>
+      <p class="subtle">이젠 데몬을 제압하고, 다시 내 학습 루틴으로! 💪</p>
+      <img src="https://pingjueuna.github.io/socalletter/socaltun26.png" alt="쏘칼툰 – 학습 데몬 테마" class="img-soft" style="margin-top:12px;" />
+      <div style="margin-top:12px;">
+        <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3168618014" class="btn" target="_blank" rel="noopener noreferrer" aria-label="쏘칼툰 더 보기">쏘칼툰 몰아보기</a>
+      </div>
+    </section>
 
+    <!-- 러크TV -->
+    <section class="card">
+      <h3>📺 러크TV 신규 콘텐츠 | 모두의 경험과 노하우</h3>
+      <p>국내 1호 프롬프트 엔지니어 <strong>강수진 박사</strong>의 GPT-5 리뷰 정리와, <strong>Vibe Coding</strong> 꿀팁 4가지를 소개합니다.<br> CSO 정의석의 큐레이션, 놓치면 아쉽습니다.</p>
+      <ul class="list-tight" style="font-size:13px;">
+        <li><a href="http://collab.lge.com/main/x/zPYxx" target="_blank" rel="noopener noreferrer">(25.09.05) 강수진 박사 – GPT-5 리뷰 한눈에 보기</a></li>
+        <li><a href="http://collab.lge.com/main/x/Kuphx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – arxiv-paper-saver</a></li>
+        <li><a href="http://collab.lge.com/main/x/MOphx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – emoji-library</a></li>
+        <li><a href="http://collab.lge.com/main/x/Wv5hx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – exaone-prompt-hub</a></li>
+        <li><a href="http://collab.lge.com/main/x/UYGYx" target="_blank" rel="noopener noreferrer">Vibe Code Tools – make-tables-to-code</a></li>
+      </ul>
+      <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2193929410" class="btn" target="_blank" rel="noopener noreferrer">러크TV 전체 보기</a>
+    </section>
 
-<!-- 푸터 -->
-<footer class="footer">
-문의: 교육서비스센터 유지혜 선임 ｜ 발행: SW역량강화팀 ｜ 제작: 이은아, 진명숙, 이호정, 유지혜, 장서련
-</footer>
-</div>
+    <!-- 쏘칼러 추천 강의 -->
+    <section class="card">
+      <h3>📢 쏘칼러 추천 강의</h3>
+      <h4>VS본부 ‘팀 AI돌’ 추천 – 시계열 예측·파이썬 심화</h4>
+      <p>로또 3등 예측로 검증된 시계열 예측 심화부터 과학 계산 프로그래밍까지, 지금 바로 클릭!</p>
+      <ul class="list-tight">
+        <li><a href="https://lg.udemy.com/course/forecasting-python/" target="_blank" rel="noopener noreferrer">Master Time Series Analysis and Forecasting with Python 2025</a></li>
+        <li><a href="https://lg.udemy.com/course/250-timeseries-kor-sub-top-100/" target="_blank" rel="noopener noreferrer">[한글 자막] 시계열 데이터 분석 with 파이썬</a></li>
+        <li><a href="https://lg.udemy.com/course/computational-physics/" target="_blank" rel="noopener noreferrer">Computational Physics: Scientific Programming with Python</a></li>
+      </ul>
+    </section>
+
+    <!-- Fast Learner -->
+    <section class="card">
+      <h3>🏃 3분기 Fast Learner</h3>
+      <p>이번 주 <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3291779820" target="_blank" rel="noopener noreferrer">쏘칼 학습 인증 이벤트🍁</a>에서는 ‘피곤함·드라마·이슈’ 등 각자의 학습 데몬 고백이 이어졌습니다. 드라마, 업무 이슈를 넘어 러닝 루틴을 지켜낸 모든 분을 응원합니다. 이번 주 학습 1위는 <strong>HS 정상훈 선임</strong>! Top10이 궁금하다면 지금 확인하세요.</p>
+      <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=2966064616" class="btn" target="_blank" rel="noopener noreferrer">🏅 Fast Learner Ranking Board</a>
+    </section>
+
+    <!-- 필수 자료 -->
+    <section class="card">
+      <h3>📚 쏘칼 Pick! SW 개발자 필수 자료</h3>
+      <ol class="list-tight">
+        <p>항상 바쁜 SW 개발자를 위해 <strong>AISE</strong>가 개발 산출물 생성과 개발자 액션을 웹에서 자동화합니다.</p>
+        <li>AI로 시작하는 SRS / Test Case 생성</li>
+        <li>정적 분석 결함 수정 <em>Change</em>를 즉시 조회</li>
+        <li>프로젝트 SW 아키텍처 빠른 분석</li>
+        <li>코드로부터 Unit Design 자동 생성</li>
+        <li>Code 품질, Code X-ray로 빠른 피드백</li>
+        <li>복잡한 오픈소스 라이선스 — 분석 결과 기반 해석까지!</li>
+      </ol>
+      <a href="https://aise.lge.com" class="btn" target="_blank" rel="noopener noreferrer">AISE 바로가기</a>
+    </section>
+
+    <!-- PMC -->
+    <section class="card">
+      <h3>🎙️ LG SW PM Competition 2025 본선 참가자</h3>
+      <p>치열했던 예선을 통과하고, 우승🏆을 향해 달려가는 7개 팀의 본선 진출을 응원해주세요.<br> (MS본부 3팀, VS 1팀, 생기원 1팀, CSO 1팀, LG유플러스 1팀)</p>
+      <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3277493784" target="_blank" rel="noopener noreferrer">
+        <img src="https://pingjueuna.github.io/socalletter/pmclogo2025.png" alt="LG SW PM Competition 2025 본선 안내 이미지" class="img-soft" style="max-width:100%; height:auto;" />
+      </a>
+    </section>
+
+    <!-- SDC -->
+    <section class="card">
+      <h3>🎙️ LG SDC 2025 사전 참가자 모집</h3>
+      <p>아직 늦지 않았어요! 사전 신청하고 기념품🎁도 받아가세요. <br> LG SW 개발자라면 누구나 쉽게 등록할 수 있으며, 다채로운 프로그램과 이벤트가 준비되어 있습니다.</p>
+      <a href="https://lgsdc.com" target="_blank" rel="noopener noreferrer">
+        <img src="https://pingjueuna.github.io/socalletter/lgsdc2.png" alt="LG SDC 2025 참가 신청 이미지" class="img-soft" style="max-width:100%; height:auto;" />
+      </a>
+    </section>
+
+    <!-- 이벤트 -->
+    <section class="card">
+      <h3>🌿 쏘칼 9월 이벤트</h3>
+      <p>오프라인 교육이 필요했던 순간, 온라인 실습이 잘 됐던 비결을 들려주세요. <br> 쏘칼은 여러분의 모든 목소리를 기다리고 있습니다 with 🎁</p>
+      <a href="http://collab.lge.com/main/pages/viewpage.action?pageId=3288218356" class="btn" target="_blank" rel="noopener noreferrer">이벤트 참여하기</a>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+      문의: 교육서비스센터 유지혜 선임 ｜ 발행: SW역량강화팀 ｜ 제작: 이은아, 진명숙, 이호정, 유지혜, 장서련
+    </footer>
+  </div>
 </body>
 </html>
