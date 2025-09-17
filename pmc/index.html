@@ -1,0 +1,293 @@
+     <!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>LG SW PM Competition 2025 – 봉인석 아이템/발표 순서 뽑기</title>
+<style>
+  :root{
+    --paper:#ead9b7; --paper-deep:#e2cfa8; --edge:#c1aa7f;
+    --seal1:#565a60; --seal2:#3e4247; --sealLine:#cdd3da;
+    --ink:#1f1b14; --ui:#1c2236; --ui-b:#2e3a5a;
+  }
+  html,body{height:100%}
+  body{margin:0;background:linear-gradient(180deg,#0b0f16,#12182a);color:#f3f6ff;
+       font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Malgun Gothic}
+
+  h1{margin:18px 0 6px;text-align:center;font-size:22px}
+  .sub{margin:0 0 12px;text-align:center;color:#aab4c9;font-size:12px}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin:10px auto 14px;max-width:1180px}
+  .controls>*{background:var(--ui);color:#e8ecf7;border:1px solid var(--ui-b);border-radius:12px;padding:10px 12px;font-size:14px}
+  button{cursor:pointer}
+
+  /* ===== 2열 레이아웃 ===== */
+  .layout{max-width:1180px;margin:0 auto;padding:0 16px 16px;
+          display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}
+  @media (max-width:980px){ .layout{grid-template-columns:1fr} }
+
+  /* ===== 카드 영역 ===== */
+  .stage{width:100%}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:780px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+  .card{width:100%;aspect-ratio:3/4;perspective:1100px;cursor:pointer;user-select:none}
+  .inner{position:relative;width:100%;height:100%}
+  .face{
+    position:absolute;inset:0;border-radius:14px;overflow:hidden;border:2px solid var(--edge);
+    backface-visibility:hidden;transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.2,.7,.2,1);
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14px 10px;
+    box-shadow:0 4px 0 var(--edge), inset 0 0 0 3px #0001;
+  }
+  .front{
+    background:
+      radial-gradient(500px 220px at 50% -30px, #ffffffaa 0%, transparent 70%),
+      linear-gradient(180deg,var(--paper),var(--paper-deep));
+    color:var(--ink); transform:rotateY(0deg);
+  }
+  .back{
+    background:
+      radial-gradient(600px 240px at 50% -40px, #ffffffaa 0%, transparent 70%),
+      linear-gradient(180deg,var(--paper),var(--paper-deep));
+    color:var(--ink); transform:rotateY(180deg);
+  }
+  .card.revealed .front{transform:rotateY(180deg)}
+  .card.revealed .back{transform:rotateY(0deg)}
+  .title{font-weight:900;font-size:26px;letter-spacing:.08em}
+
+  .seal, .sealInfo{
+    border-radius:50%; position:relative; display:flex; align-items:center; justify-content:center; text-align:center;
+    background:radial-gradient(circle at 50% 50%, var(--seal1) 0 55%, var(--seal2) 56% 100%);
+    box-shadow:inset 0 0 18px rgba(0,0,0,.55)
+  }
+  .seal{width:60%;aspect-ratio:1}
+  .seal::before,.seal::after{content:"";position:absolute;border:2px solid var(--sealLine);border-radius:50%}
+  .seal::before{inset:10%} .seal::after{inset:24%}
+  .rune{position:absolute;width:42%;height:42%;clip-path:polygon(50% 0,0 90%,100% 90%);
+        border-left:3px solid var(--sealLine);border-right:3px solid var(--sealLine);border-bottom:3px solid var(--sealLine);transform:translateY(6%)}
+  .caption{font-size:12px;color:#4b4337}
+
+  .sealInfo{width:70%;aspect-ratio:1;padding:12px}
+  .sealInfo::before,.sealInfo::after{content:"";position:absolute;border-radius:50%;z-index:1}
+  .sealInfo::before{inset:10%;border:2px dashed #cfd6dd90}
+  .sealInfo::after{inset:22%;border:2px solid #cfd6dd60}
+  .sealInfo .order,.sealInfo .item,.sealInfo .desc{position:relative;z-index:2;color:#eef3ff;text-shadow:0 0 10px #cbd6e7}
+  .sealInfo .order{font-size:30px;font-weight:900;margin-top:2px}
+  .sealInfo .item{font-size:20px;font-weight:800;margin-top:6px}
+  .sealInfo .desc{font-size:13px;opacity:.95;line-height:1.35;margin-top:6px}
+  .footer{height:24px}
+
+  /* ===== 표(패널) – 왼쪽 고정 폭 ===== */
+  .panel{width:100%}
+  .cardTable{width:100%;border-collapse:collapse;font-size:14px;background:#101625;border:1px solid #2a3553;border-radius:12px;overflow:hidden}
+  th,td{padding:10px;border-bottom:1px solid #273258}
+  th{background:#162038;color:#d6dff0}
+  tr:last-child td{border-bottom:0}
+  .note{color:#aab4c9;font-size:12px;margin-top:6px;text-align:center}
+
+  /* 표 높이 스크롤(많은 팀 대비) */
+  .tableWrap{max-height:62vh;overflow:auto;border-radius:12px}
+  @media (max-width:980px){ .tableWrap{max-height:none} }
+
+  /* 토스트 */
+  .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%) scale(.98);
+         background:#1a2236;border:1px solid #3a4c7a;border-radius:12px;padding:10px 14px;
+         color:#ffd76d;box-shadow:0 12px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;z-index:10}
+  .toast.show{animation:toastIn .6s ease forwards}
+  @keyframes toastIn{to{opacity:1;transform:translateX(-50%) scale(1)}}
+</style>
+</head>
+<body>
+  <h1>LG SW PM Competition 2025 – 봉인석 카드 뽑기</h1>
+  <p class="sub">팀당 1장 · 팀1 선택권(중복 금지) · 미선택 카드만 셔플</p>
+
+  <div class="controls">
+    <label>현재 팀:
+      <select id="teamSel">
+        <option>팀1</option><option>팀2</option><option>팀3</option>
+        <option>팀4</option><option>팀5</option><option>팀6</option><option>팀7</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="team1Choice" checked/> 팀1 발표 순서 선택권</label>
+    <button class="primary" id="shuffleRemain">셔플(미선택만)</button>
+    <button id="resetAll">전체 초기화</button>
+    <button class="primary" id="csvBtn">결과 CSV</button>
+  </div>
+
+  <!-- ✅ 표 왼쪽 / 카드 오른쪽 -->
+  <section class="layout">
+    <div class="panel">
+      <div class="tableWrap">
+        <table class="cardTable">
+          <thead><tr><th style="width:28%">팀</th><th style="width:24%">발표 순서</th><th>아이템</th><th style="width:30%">설명/비고</th></tr></thead>
+          <tbody id="logBody"></tbody>
+        </table>
+      </div>
+      <p class="note">카드를 뽑으면 다음 미배정 팀으로 자동 이동합니다.</p>
+    </div>
+
+    <div class="stage"><div class="grid" id="deck"></div></div>
+  </section>
+
+  <div class="toast" id="toast"><b>봉인 해제!</b> <span id="tmsg"></span></div>
+
+<script>
+/* ===== 데이터 ===== */
+const ITEMS = [
+  { name:"🪽 순간이동의 부적", desc:"Day2 발표 순서 변경권" },
+  { name:"🌪️ 전환의 부적",   desc:"14:00 돌발 데몬 교체 1회" },
+  { name:"⏳ 시간의 모래시계", desc:"Day1 마감 시간 10분 연장" },
+  { name:"🎭 환영의 거울",     desc:"Day1 중 1분간 타 팀 산출물 일부 관찰" },
+  { name:"🔮 혼돈의 수정구",   desc:"Day1 중 타 팀과 자리 교환(선택 가능)" },
+  { name:"👕 헌터스 기념 의복+1", desc:"기념 의복 1벌 추가 획득" },
+  { name:"🍜 헌터스 신라면",   desc:"전투식량 지급 (실물 라면)" }
+]; // 7장
+
+const deckEl = document.getElementById('deck');
+const teamSel = document.getElementById('teamSel');
+const team1ChoiceEl = document.getElementById('team1Choice');
+const logBody = document.getElementById('logBody');
+const toastEl = document.getElementById('toast');
+const tmsgEl = document.getElementById('tmsg');
+
+let deck = [];                 // [{id,order,item, revealed:false}]
+let results = {};              // 팀별 { order, item, desc, note }
+let usedOrders = new Set();    // 이미 배정된 발표 순서(팀1 선택 포함)
+const teamList = ['팀1','팀2','팀3','팀4','팀5','팀6','팀7'];
+
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+const allOrders = ()=> [1,2,3,4,5,6,7];
+function toast(msg){ tmsgEl.textContent = msg; toastEl.classList.add('show'); setTimeout(()=>toastEl.classList.remove('show'), 2000); }
+function nextTeam(){ for(const t of teamList){ if(!results[t]){ teamSel.value = t; return; } } }
+
+function buildDeckInitial(){
+  deck = [];
+  const orders = shuffle(allOrders());
+  const items  = shuffle([...ITEMS]);
+  for(let i=0;i<7;i++){ deck.push({ id:'c'+i, order:orders[i], item:items[i], revealed:false }); }
+}
+
+function renderDeck(){
+  deckEl.innerHTML = '';
+  deck.forEach(card=>{
+    const el = document.createElement('div');
+    el.className = 'card' + (card.revealed ? ' revealed':'');
+    el.dataset.id = card.id;
+    el.innerHTML = `
+      <div class="inner">
+        <div class="face front">
+          <div class="title">봉인석</div>
+          <div class="seal"><div class="rune"></div></div>
+          <div class="caption">봉인을 해제하라</div>
+        </div>
+        <div class="face back">
+          <div class="title">봉인석</div>
+          <div class="sealInfo">
+            <div class="order">발표 ${card.order}</div>
+            <div class="item">${card.item.name}</div>
+            <div class="desc">${card.item.desc}</div>
+          </div>
+          <div class="footer"></div>
+        </div>
+      </div>`;
+    if(!card.revealed){ el.addEventListener('click', ()=>revealCard(card.id, el)); }
+    deckEl.appendChild(el);
+  });
+}
+
+function renderLog(){
+  logBody.innerHTML = '';
+  teamList.forEach(t=>{
+    const r = results[t] || {};
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${t}</td>
+      <td>${r.order ?? '<span style="color:#aab4c9">—</span>'}</td>
+      <td>${r.item ?? '<span style="color:#aab4c9">—</span>'}</td>
+      <td>${r.note ?? '<span style="color:#aab4c9">카드 미개봉</span>'}</td>`;
+    logBody.appendChild(tr);
+  });
+}
+
+function revealCard(cardId, el){
+  const team = teamSel.value;
+  if(results[team]){ alert(`${team}은(는) 이미 카드를 선택했습니다.`); return; } // 팀당 1장
+
+  const card = deck.find(c=>c.id===cardId);
+  if(!card || card.revealed) return;
+
+  card.revealed = true;
+  el.classList.add('revealed');
+
+  let finalOrder = card.order;
+  let note = '랜덤';
+
+  if(team === '팀1' && team1ChoiceEl.checked){
+    while(true){
+      const input = prompt('팀1 원하는 발표 순서 (1~7, 중복 불가):', '');
+      if(!input){ break; }
+      const n = Number(input);
+      if(Number.isInteger(n) && n>=1 && n<=7 && !usedOrders.has(n)){ finalOrder = n; note = '팀1 선택권'; break; }
+      else{ alert('⚠️ 이미 사용된 번호거나 잘못된 입력입니다.'); }
+    }
+  }else{
+    if(usedOrders.has(finalOrder)){
+      for(let n=1;n<=7;n++){ if(!usedOrders.has(n)){ finalOrder = n; break; } }
+    }
+  }
+
+  usedOrders.add(finalOrder);
+
+  /* 카드 뒷면 텍스트와 데이터 동기화(표와 어긋남 방지) */
+  card.order = finalOrder;
+  el.querySelector('.order').textContent = `발표 ${finalOrder}`;
+
+  results[team] = { order:finalOrder, item:card.item.name, desc:card.item.desc, note };
+  renderLog();
+  toast(`${team} – ${card.item.name} / 발표 ${finalOrder}`);
+  nextTeam();
+}
+
+function shuffleUnrevealed(){
+  const revealed = deck.filter(c=>c.revealed);
+  const left = deck.filter(c=>!c.revealed);
+  if(left.length===0){ toast('모든 카드가 이미 선택되었습니다.'); return; }
+
+  const excludedOrders = new Set(usedOrders);
+  revealed.forEach(c => excludedOrders.add(c.order));
+  const availableOrders = allOrders().filter(n => !excludedOrders.has(n));
+
+  const usedItems = new Set(revealed.map(c=>c.item.name));
+  const availableItems = ITEMS.filter(it => !usedItems.has(it.name));
+
+  shuffle(availableOrders); shuffle(availableItems);
+  for(let i=0;i<left.length;i++){ left[i].order = availableOrders[i]; left[i].item = availableItems[i]; }
+
+  renderDeck();
+  toast('미선택 카드만 셔플 완료');
+}
+
+function resetAll(){
+  if(!confirm('모든 결과가 초기화됩니다. 계속할까요?')) return;
+  results = {}; usedOrders.clear(); teamSel.value = '팀1';
+  buildDeckInitial(); renderDeck(); renderLog();
+}
+
+function downloadCSV(){
+  const rows = [['team','order','item','note']];
+  teamList.forEach(t=>{ const r=results[t]||{}; rows.push([t, r.order??'', r.item??'', r.note??'']); });
+  const csv = rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'}); const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'day2_order_and_items.csv'; a.click();
+}
+
+/* 초기화 */
+document.getElementById('shuffleRemain').addEventListener('click', shuffleUnrevealed);
+document.getElementById('resetAll').addEventListener('click', resetAll);
+document.getElementById('csvBtn').addEventListener('click', downloadCSV);
+
+buildDeckInitial(); renderDeck(); renderLog();
+</script>
+</body>
+</html>
