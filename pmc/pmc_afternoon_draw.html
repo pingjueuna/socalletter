@@ -28,13 +28,25 @@
   @media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
   @media(min-width:980px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
   .flip{perspective:1200px}
-  .flip-inner{position:relative;width:100%;height:320px;transition:transform .7s;transform-style:preserve-3d;cursor:pointer}
+  .flip-inner{
+    position:relative;width:100%;height:380px; /* 높이 ↑ */
+    transition:transform .7s;transform-style:preserve-3d;cursor:pointer
+  }
   .flip.revealed .flip-inner{transform:rotateY(180deg)}
-  .face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff}
+  .face{
+    position:absolute;inset:0;backface-visibility:hidden;
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff
+  }
   .face img{width:100%;height:100%;object-fit:cover;background:#f1f5f9}
-  .back{transform:rotateY(180deg);padding:10px;display:flex;flex-direction:column;gap:8px}
+  .back{
+    transform:rotateY(180deg);
+    padding:10px;display:flex;flex-direction:column;gap:10px;justify-content:flex-start;align-items:stretch
+  }
+  /* 뒷면 콘텐츠가 잘리지 않도록 이미지 높이 고정 + contain */
+  .back img{width:100%;height:220px;object-fit:contain;background:#f1f5f9;border-radius:8px}
   .meta{font-weight:800;text-align:center}
-  .row-ctrl{display:flex;gap:8px;align-items:center;justify-content:center}
+  .row-ctrl{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:auto}
+  .row-ctrl .team{flex:1;min-width:0}
 </style>
 </head>
 <body>
@@ -50,7 +62,7 @@
     <div class="note">11:30 도출 문제 리스트 제출팀 대상 · 사용 가능 시간: <strong>14:00 ~ 16:00</strong></div>
 
     <div class="row">
-      <input id="pmTeam" placeholder="팀 이름" />
+      <!-- 상단 팀 입력칸 제거 -->
       <button id="pmReset" class="ghost">초기화</button>
       <span id="pmStock" class="pill"></span>
       <span class="pill">카드를 클릭하면 앞면 → 해당 아이템(뒷면)으로 뒤집힙니다.</span>
@@ -143,7 +155,8 @@ function onFlipPM(e) {
   // 확정 버튼 (한 번만)
   const lockBtn = back.querySelector(".lock");
   const teamInput = back.querySelector(".team");
-  lockBtn.addEventListener("click", () => {
+  lockBtn.addEventListener("click", (ev) => {
+    ev.stopPropagation(); // 카드 다시 뒤집힘 방지
     const team = (teamInput.value || "").trim();
     if (!team) { alert("팀 이름을 입력하세요."); return; }
     const tr = document.createElement("tr");
@@ -152,13 +165,15 @@ function onFlipPM(e) {
     teamInput.disabled = true;
     lockBtn.disabled = true;
   }, { once: true });
+
+  // 뒷면에서 입력 중 클릭이 플립에 전파되지 않도록
+  back.addEventListener('click', ev => ev.stopPropagation());
 }
 
 function resetPM() {
   document.getElementById("pmLog").innerHTML = "";
   initPMStock();
   renderPMGrid();
-  document.getElementById("pmTeam").value = "";
 }
 
 // 초기화
@@ -168,4 +183,3 @@ renderPMGrid();
 </script>
 </body>
 </html>
-
