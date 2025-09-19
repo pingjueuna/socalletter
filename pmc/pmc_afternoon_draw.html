@@ -1,1 +1,171 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>오후: 아이템 뽑기 (Flip)</title>
+<style>
+  :root { --ink:#0f172a; --muted:#475569; --bg:#f8fafc; --card:#fff; --line:#e5e7eb; --pri:#111827; --acc:#2563eb; }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,'Noto Sans KR',system-ui,Arial,sans-serif}
+  header{background:#fff;border-bottom:1px solid var(--line)}
+  header .wrap{max-width:1000px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+  header a{color:#111827;text-decoration:none}
+  main{max-width:1000px;margin:0 auto;padding:16px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+  h2{margin:0 0 8px}
+  .note{color:var(--muted);margin-bottom:8px}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+  input,button{padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
+  button{background:var(--pri);color:#fff;border:none;cursor:pointer}
+  button.secondary{background:var(--acc);color:#fff}
+  button.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#f1f5f9;color:#334155;border:1px solid var(--line);font-weight:700}
+
+  /* 카드 그리드 + 플립 */
+  .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:12px}
+  @media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(min-width:980px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .flip{perspective:1200px}
+  .flip-inner{position:relative;width:100%;height:320px;transition:transform .7s;transform-style:preserve-3d;cursor:pointer}
+  .flip.revealed .flip-inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff}
+  .face img{width:100%;height:100%;object-fit:cover;background:#f1f5f9}
+  .back{transform:rotateY(180deg);padding:10px;display:flex;flex-direction:column;gap:8px}
+  .meta{font-weight:800;text-align:center}
+  .row-ctrl{display:flex;gap:8px;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="index.html">← 메뉴</a><strong>오후: 아이템 뽑기 (Flip)</strong>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>오후 아이템 뽑기</h2>
+    <div class="note">11:30 도출 문제 리스트 제출팀 대상 · 사용 가능 시간: <strong>14:00 ~ 16:00</strong></div>
+
+    <div class="row">
+      <input id="pmTeam" placeholder="팀 이름" />
+      <button id="pmReset" class="ghost">초기화</button>
+      <span id="pmStock" class="pill"></span>
+      <span class="pill">카드를 클릭하면 앞면 → 해당 아이템(뒷면)으로 뒤집힙니다.</span>
+    </div>
+
+    <div class="grid" id="pmGrid"></div>
+
+    <table>
+      <thead><tr><th>팀</th><th>당첨 아이템</th></tr></thead>
+      <tbody id="pmLog"></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+/* 앞면 이미지 + 아이템(뒷면) 이미지 매핑 */
+const FRONT_IMG = "assets/front.png";
+
+/* 7장 구성 (총 수량 7) */
+const pmPool = [
+  { name:"전환의 부적", qty:1, img:"assets/item-switch.png", desc:"14:00 돌발 데몬 때 다른 데몬으로 1회 교체" },
+  { name:"혼돈의 수정구", qty:1, img:"assets/item-chaos.png",  desc:"다른 팀과 자리 교환" },
+  { name:"헌터스 전투 식량 신라면", qty:3, img:"assets/item-ramen.png", desc:"즉석 취식 보급 — 3팀" },
+  { name:"헌터스 회식 패스", qty:1, img:"assets/item-dinner.png", desc:"법카 5만원 사용권(~10월, 치노가리 권장)" },
+  { name:"시크릿 라운지 사용권", qty:1, img:"assets/item-lounge.png", desc:"강사대기실 1시간 이용권" }
+];
+
+/* 상태 */
+const state = {
+  stock: []  // 각 카드에 들어갈 개별 항목(중복 포함)
+};
+
+function initPMStock() {
+  state.stock = [];
+  pmPool.forEach(it => { for (let i=0;i<it.qty;i++) state.stock.push({name:it.name, img:it.img}); });
+  updatePMStock();
+}
+function updatePMStock() {
+  const total = pmPool.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('pmStock').textContent = "남은 아이템: " + state.stock.length + " / " + total;
+}
+
+function renderPMGrid() {
+  const grid = document.getElementById('pmGrid');
+  grid.innerHTML = "";
+  const count = pmPool.reduce((s,i)=>s+i.qty,0); // 7
+  for (let i=0;i<count;i++) {
+    const wrap = document.createElement('div');
+    wrap.className = "flip";
+    wrap.innerHTML = `
+      <div class="flip-inner" data-index="${i}">
+        <div class="face front"><img src="${FRONT_IMG}" alt="front"></div>
+        <div class="face back">
+          <img alt="item">
+          <div class="meta"></div>
+          <div class="row-ctrl">
+            <input type="text" placeholder="팀 이름" class="team">
+            <button class="lock">확정</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(wrap);
+  }
+
+  // 바인딩
+  grid.querySelectorAll(".flip-inner").forEach(el => {
+    el.addEventListener("click", onFlipPM);
+  });
+}
+
+function onFlipPM(e) {
+  const inner = e.currentTarget;
+  // 이미 뒤집혀 있으면 무시
+  if (inner.parentElement.classList.contains("revealed")) return;
+
+  if (state.stock.length === 0) { alert("남은 아이템이 없습니다."); return; }
+
+  // 랜덤 아이템 하나 뽑기
+  const idx = Math.floor(Math.random() * state.stock.length);
+  const pick = state.stock.splice(idx,1)[0];  // {name, img}
+  updatePMStock();
+
+  // 뒤집기 + 뒷면 세팅
+  inner.parentElement.classList.add("revealed");
+  const back = inner.querySelector(".back");
+  back.querySelector("img").src = pick.img || FRONT_IMG;
+  back.querySelector("img").alt = pick.name;
+  back.querySelector(".meta").textContent = pick.name;
+
+  // 확정 버튼 (한 번만)
+  const lockBtn = back.querySelector(".lock");
+  const teamInput = back.querySelector(".team");
+  lockBtn.addEventListener("click", () => {
+    const team = (teamInput.value || "").trim();
+    if (!team) { alert("팀 이름을 입력하세요."); return; }
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${team}</td><td>${pick.name}</td>`;
+    document.getElementById("pmLog").appendChild(tr);
+    teamInput.disabled = true;
+    lockBtn.disabled = true;
+  }, { once: true });
+}
+
+function resetPM() {
+  document.getElementById("pmLog").innerHTML = "";
+  initPMStock();
+  renderPMGrid();
+  document.getElementById("pmTeam").value = "";
+}
+
+// 초기화
+document.getElementById("pmReset").onclick = resetPM;
+initPMStock();
+renderPMGrid();
+</script>
+</body>
+</html>
 
