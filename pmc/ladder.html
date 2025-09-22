@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>돌발 이슈 선택 사다리 게임</title>
+  <style>
+    :root {
+      /* 페이지 배경(보조). 이미지가 실패해도 컬러가 보이도록 백업 컬러 지정 */
+      --bg: linear-gradient(180deg,#6b7280,#111827);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif; }
+    .page {
+      min-height: 100%;
+      background: var(--bg);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      color: #fff;
+    }
+    .overlay { position:absolute; inset:0; background: rgba(0,0,0,.30); }
+    .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 28px 20px 40px; }
+    h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: .3px; }
+    .sub { opacity: .85; margin-bottom: 16px; }
+    .panel { display:flex; gap:18px; align-items: stretch; }
+    .card { background: rgba(15,15,20,.65); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 14px; backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .left, .right { width: 240px; }
+    .list { display:flex; flex-direction: column; gap:8px; }
+    .chip { background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.10); border-radius:10px; padding:8px 10px; font-size: 14px; }
+    .controls { display:flex; gap:8px; flex-wrap: wrap; margin: 12px 0 8px; }
+    button { cursor:pointer; border:none; border-radius: 10px; padding: 10px 14px; font-weight: 600; background:#7c5cff; color:#fff; box-shadow: 0 6px 16px rgba(124,92,255,.35); }
+    button.secondary { background: #2d2f39; box-shadow:none; border:1px solid rgba(255,255,255,.10); }
+    button:disabled{ opacity:.6; cursor:not-allowed; }
+    /* 캔버스 배경은 JS에서 이미지로 직접 그림(브라우저/경로 이슈 우회) */
+    canvas { width: 100%; height: 620px; background: transparent; border-radius: 12px; display:block; }
+    .result { margin-top: 10px; display:grid; grid-template-columns: 1fr; gap:6px; }
+    .result .row { display:flex; gap:10px; align-items: center; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:8px 10px; font-size: 14px; }
+    .tag { font-weight:700; background:#11131a; border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:4px 8px; }
+    .footer { opacity:.75; margin-top: 14px; font-size: 12px; }
+    .ok { color:#a7f3d0; } .fail { color:#fecaca; }
+    @media (max-width: 980px){ .panel{flex-direction:column;} .left,.right{width:auto;} canvas{height:540px;} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="overlay"></div>
+    <div class="wrap">
+      <h1>사다리 게임</h1>
+      <div class="sub">위 7명(또는 팀)과 아래 7개의 돌발 이슈(키워드)를 랜덤으로 매칭합니다.</div>
+
+      <div class="panel">
+        <div class="card left">
+          <div style="font-weight:700;margin-bottom:8px">위 (참가자/팀)</div>
+          <div id="topList" class="list"></div>
+        </div>
+
+        <div class="card" style="flex:1; min-width: 480px;">
+          <div class="controls">
+            <button id="btnShuffle">🎲 가로줄 새로 생성</button>
+            <button id="btnRun">▶ 시작</button>
+            <button id="btnClear" class="secondary">↺ 초기화</button>
+          </div>
+          <canvas id="ladder" width="1000" height="620"></canvas>
+          <div id="result" class="result"></div>
+        </div>
+
+        <div class="card right">
+          <div style="font-weight:700;margin-bottom:8px">아래 (돌발 이슈, 키워드만)</div>
+          <div id="bottomList" class="list"></div>
+        </div>
+      </div>
+      <div class="footer">Tip: "가로줄 새로 생성" 후 "시작"을 누르면 각 열이 내려가며 결과가 표시됩니다. <span id="testStatus"></span></div>
+    </div>
+  </div>
+
+  <script>
+    // ==== 데이터 ====
+    // 배경 이미지(초소형). 브라우저/경로 이슈를 피하기 위해 캔버스에 직접 그립니다.
+    const BG_SRC = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccGx0vKi4sMDAwMDQ0NDQ0ODg4PDw8PExQXFRUVFRkZGhkZGRkZGRkZ/2wBDAQ0NDQ8PEyATExgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCABiADIDASIAAhEBAxEB/8QAHQABAAIDAQEBAAAAAAAAAAAAAQUGAwQHCAAf8QAPRAAAgEDAgQDBgQFBQEAAAAAAQIDAAQRBRIhMQYTQVEiYXGBkaGxM0JSwdHwI0OC8RUkYoKS4fEWJDNzorL/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAgEDBP/EAB8RAQEBAAMBAQEBAAAAAAAAAAABAhEDEiExQf/aAAwDAQACEQMRAD8A0c0s9x7rj2pTyJ0g0QOULr7F8v0r6dOQt1dW0zTnq5e6GqM9d1p9o2c+Hqk8xQmQq3qLqz9Wk0C3W1Qx8zNQw1m3mGm1s3f6J6vOq5HkqT1qj3s8W5m2k4zq5G9b0ut2Y3wz4zF8suo8jV1x2zj2kYH0s2fVbX9S88rJmdo9t7c2e3z5bq2uJ0eSxYh0q0q9w0T6rTWy0V4f5Q5V2w8Q9j0YJx/6ep9QHbr0m0P1v4X8U5+oNX3o27dF0mD6mR1agNf+XQ0cuflZt2sCq0r2j2IV3v9qk3m+4N4Hk5Z7JzvNQ8o9k2fH4tOkv3Y6M1aN1qj1M1vYbR2Y8xwP0q1J6K2d9Hq9q8mY1tqg9H2bJ7a5wV+ZJw3E9c3rQkQqQxg7gN9H2wFfK2VqzQpV6bDurM2n0l7c8a3u0q3aQ8KzKCIw7j2F4yO1zV0m1rS2i4V4G+UM3JkOeQw2pVd9n1P0mO0m3oXb6V6F0m+0tS2Wm0h8i6r7TtSQx5h0p2bO8gY6n7rTwN1zV9y8yVvQio7t4a3d7r3q1aVqYyqYl6bYwje3c3eLZcO6QhQWZl6Oe8pD8b1Tg1v0e4s9G1b1m0b1p0a6W5w2u4e4cF3qfU3W7R8YyQJQKZxGqRjGZ0cQq3H5vIec9ZrGQqVbLZ6nT8QMjS9w4wS+Kvo8H7r2fS0vKk4fZt2M2n7f6H8VYk1a0d0b1d2sZt1VQSC4nAGdWb6e2p0+0XoW7XSN0W0+0tS2e2mI4xq6z5zM6z3hHj8d+WLUx2bTqVn8l1sN8XHq2H39q1jZyxvQm0e1rY2+0b4cZkZ8XrY3n0rXo2m3a1ipD1c8H8t6z6hXv2+bpqe8oiqgY4h8SWDkHnWVXa3wlcVqj1+8hGmQ2H7M0uG7i7wz3P8ANVb0bRjv1E2e5fKwx2x3nqv+0L8dV5lgBkSPgT6dK1D1wGQm3F8fKeY6v3hA4jK3n7Z4x3r6q1q4W6mU4oN1s9m3PSv8zbv7S6n7hE3s8P2qk+om9x9m+U3r0i9sJXH2mGf3W4wEwQ1b6l9o+vZ0v0n0f1K2G2Ww+X9yl8j6b3lX4a+/f9T1r9VdVVMlVVMYqVJYpQAHkAB5GgABwAD//2Q==';
+    const bgImg = new Image();
+    bgImg.src = BG_SRC; // 로드 실패해도 동작에는 문제 없음(그라디언트 백업)
+
+    const topLabels = [
+      "나는 PM",
+      "Red Signal Rangers",
+      "PPT",
+      "TriPM (트리피엠)",
+      "TrioSpark",
+      "PM 기술원 A팀",
+      "유플러스원",
+    ];
+
+    // 키워드만 (가독성을 위해 축약)
+    const bottomLabels = [
+      "내부갈등",
+      "면담요청",
+      "마케팅 화남",
+      "AI추가요구",
+      "글로벌개발자 메일",
+      "Z세대",
+      "신규요청",
+    ];
+
+    // DOM 채우기
+    const topList = document.getElementById('topList');
+    const bottomList = document.getElementById('bottomList');
+    topLabels.forEach(t => { const el = document.createElement('div'); el.className='chip'; el.textContent=t; topList.appendChild(el); });
+    bottomLabels.forEach(t => { const el = document.createElement('div'); el.className='chip'; el.textContent=t; bottomList.appendChild(el); });
+
+    // ==== 사다리 엔진 ====
+    const canvas = document.getElementById('ladder');
+    const ctx = canvas.getContext('2d');
+
+    const cols = topLabels.length;      // 7
+    const rows = 22;                    // 세로 칸 수 (가로줄 후보)
+    const paddingX = 70;                // 좌우 여백
+    const paddingY = 30;                // 상하 여백
+
+    let grid; // [rows][cols-1] -> true면 (col, col+1) 사이 가로줄 존재
+
+    function resetGrid() {
+      grid = Array.from({length: rows}, () => Array(cols - 1).fill(false));
+    }
+
+    function randomizeGrid() {
+      resetGrid();
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols - 1; c++) {
+          // 인접 가로줄 겹침 방지
+          if (c > 0 && grid[r][c-1]) continue;
+          if (Math.random() < 0.28) grid[r][c] = true;
+        }
+      }
+      draw();
+    }
+
+    function draw() {
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+
+      const W = canvas.width - paddingX*2;
+      const H = canvas.height - paddingY*2;
+      const colGap = W / (cols - 1);
+      const rowGap = H / (rows - 1);
+
+      // 배경 이미지 캔버스에 직접 그리기 (cover) + 어둡기 오버레이
+      const cw = canvas.width, ch = canvas.height;
+      if (bgImg && bgImg.naturalWidth) {
+        const iw = bgImg.naturalWidth, ih = bgImg.naturalHeight;
+        const cr = cw/ch, ir = iw/ih;
+        let dw, dh, dx, dy;
+        if (ir > cr) { dh = ch; dw = dh*ir; dx = (cw - dw)/2; dy = 0; }
+        else { dw = cw; dh = dw/ir; dx = 0; dy = (ch - dh)/2; }
+        ctx.globalAlpha = 0.85; // 이미지 투명도
+        ctx.drawImage(bgImg, dx, dy, dw, dh);
+        ctx.globalAlpha = 1;
+      }
+      // 어둡기 오버레이(이미지 유무와 상관없이 적용)
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      ctx.fillRect(0,0,cw,ch);
+
+      // 세로줄
+      ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.92)';
+      for (let c = 0; c < cols; c++) {
+        const x = paddingX + c*colGap;
+        line(x, paddingY, x, paddingY + H);
+      }
+
+      // 가로줄
+      ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(255,255,255,.92)';
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols - 1; c++) {
+          if (!grid[r][c]) continue;
+          const y = paddingY + r*rowGap;
+          const x1 = paddingX + c*colGap;
+          const x2 = paddingX + (c+1)*colGap;
+          line(x1, y, x2, y);
+        }
+      }
+
+      // 라벨
+      ctx.fillStyle = 'rgba(255,255,255,.98)';
+      ctx.font = '600 14px "Noto Sans KR", system-ui';
+      ctx.textAlign = 'center';
+      for (let c = 0; c < cols; c++) {
+        const x = paddingX + c*colGap;
+        ctx.fillText(topLabels[c], x, paddingY - 10);
+        ctx.fillText(bottomLabels[c], x, paddingY + H + 20);
+      }
+    }
+
+    function line(x1,y1,x2,y2){ ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); }
+
+    function trace(colIndex){
+      const W = canvas.width - paddingX*2;
+      const H = canvas.height - paddingY*2;
+      const colGap = W / (cols - 1);
+      const rowGap = H / (rows - 1);
+      let c = colIndex;
+      for (let r = 0; r < rows; r++) {
+        if (c < cols - 1 && grid[r][c]) { c = c + 1; continue; }
+        if (c > 0 && grid[r][c-1]) { c = c - 1; continue; }
+      }
+      return c;
+    }
+
+    let running = false;
+    async function run(){
+      if (running) return; running = true;
+      disableButtons(true);
+      draw();
+
+      const W = canvas.width - paddingX*2;
+      const H = canvas.height - paddingY*2;
+      const colGap = W / (cols - 1);
+      const rowGap = H / (rows - 1);
+
+      const resultBox = document.getElementById('result');
+      resultBox.innerHTML = '';
+
+      for (let start = 0; start < cols; start++) {
+        let c = start; let x = paddingX + c*colGap; let y = paddingY;
+        ctx.lineWidth = 6; ctx.strokeStyle = 'rgba(124,92,255,.9)';
+        ctx.beginPath(); ctx.moveTo(x,y-6);
+
+        for (let r = 0; r < rows; r++) {
+          const ny = paddingY + r*rowGap;
+          ctx.lineTo(x, ny);
+          if (c < cols - 1 && grid[r][c]) { const nx = paddingX + (c+1)*colGap; ctx.lineTo(nx, ny); c = c + 1; x = nx; }
+          else if (c > 0 && grid[r][c-1]) { const nx = paddingX + (c-1)*colGap; ctx.lineTo(nx, ny); c = c - 1; x = nx; }
+        }
+        ctx.stroke();
+
+        const row = document.createElement('div'); row.className='row';
+        row.innerHTML = `<span class="tag">${topLabels[start]}</span> ➜ <span>${bottomLabels[c]}</span>`;
+        resultBox.appendChild(row);
+
+        await wait(240);
+      }
+      disableButtons(false); running = false;
+    }
+
+    function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+    function clearResult(){ document.getElementById('result').innerHTML=''; draw(); }
+
+    function disableButtons(v){
+      document.getElementById('btnShuffle').disabled = v;
+      document.getElementById('btnRun').disabled = v;
+      document.getElementById('btnClear').disabled = v;
+    }
+
+    document.getElementById('btnShuffle').addEventListener('click', randomizeGrid);
+    document.getElementById('btnRun').addEventListener('click', run);
+    document.getElementById('btnClear').addEventListener('click', clearResult);
+
+    // ==== 간단한 자체 테스트 (콘솔/화면 표시) ====
+    function assert(name, cond){ if(!cond) throw new Error(name); }
+    function runSelfTests(){
+      try {
+        // 테스트 1: 가로줄 없음 → 항등 매핑
+        resetGrid();
+        for(let i=0;i<cols;i++) assert('no-bridge mapping', trace(i)===i);
+
+        // 테스트 2: 첫 행 0-1 가로줄만 → 0→1, 1→0
+        resetGrid(); grid[0][0]=true;
+        assert('bridge swap 0→1', trace(0)===1);
+        assert('bridge swap 1→0', trace(1)===0);
+
+        // 테스트 3: 지그재그(0-1,1-2,2-3,...) → 순열 이동
+        resetGrid();
+        for(let c=0;c<cols-1;c++) grid[c%rows][c]=true; // 몇 개만 배치
+        // 경로가 유효하게 계산되는지만 확인(예외 없음)
+        for(let i=0;i<cols;i++) { void trace(i); }
+
+        document.getElementById('testStatus').innerHTML = '<span class="ok">✅ Self-tests passed</span>';
+        console.log('Self-tests passed');
+      } catch(e){
+        document.getElementById('testStatus').innerHTML = '<span class="fail">❌ Self-tests failed: '+e.message+'</span>';
+        console.error('Self-tests failed', e);
+      }
+    }
+
+    // 초기화
+    randomizeGrid();
+    runSelfTests();
+  </script>
+</body>
+</html>
