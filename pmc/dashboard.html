@@ -1,1 +1,186 @@
+import React, { useMemo, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Calendar, Clock, Gift, AlertTriangle, Users } from "lucide-react";
+import { motion } from "framer-motion";
+
+const INITIAL_DATA = {
+  prizes: [
+    { team: "PPT", item: "혼돈의 수정구", used: false },
+    { team: "TrioSpark", item: "헌터스 회식 패스", used: false },
+    { team: "TriPM", item: "헌터스 전투 시험 신라면", used: false },
+    { team: "PM생산기술원", item: "헌터스 전투 시험 신라면", used: false },
+    { team: "나는PM", item: "헌터스 전투 시험 신라면", used: false },
+    { team: "유플러스원", item: "전원의 점수 (사용 완료)", used: true },
+    { team: "Red Signal", item: "시크릿 라운지 사용권 (사용 완료)", used: true },
+  ],
+  schedule: [
+    { order: 1, team: "나는PM", time: "10:00-10:30" },
+    { order: 2, team: "TrioSpark", time: "10:35-11:05" },
+    { order: 3, team: "유플러스원", time: "11:20-11:50" },
+    { order: 4, team: "Red Signal Rangers", time: "13:20-13:50" },
+    { order: 5, team: "PPT", time: "13:55-14:25" },
+    { order: 6, team: "TriPM", time: "14:40-15:10" },
+    { order: 7, team: "PM 기술원 A 팀", time: "15:15-15:45" },
+  ],
+  incidents: [
+    { team: "나는 PM", issue: "AI 추가 요구" },
+    { team: "Red Signal Rangers", issue: "마케팅 화남" },
+    { team: "PPT", issue: "글로벌개발자 메일" },
+    { team: "TriPM (트리피엠)", issue: "신규 요청" },
+    { team: "TrioSpark", issue: "Z세대" },
+    { team: "PM 기술원 A팀", issue: "대면 요청" },
+    { team: "유플러스원", issue: "내부 갈등" },
+  ],
+};
+
+// ⏱️ Countdown helper
+function formatDuration(ms) {
+  if (ms <= 0) return "00:00:00";
+  const hrs = Math.floor(ms / 3600000);
+  const mins = Math.floor((ms % 3600000) / 60000);
+  const secs = Math.floor((ms % 60000) / 1000);
+  const pad = (n) => n.toString().padStart(2, "0");
+  return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+}
+
+function CountdownTimer({ endAt }) {
+  const [timeLeft, setTimeLeft] = React.useState("");
+
+  React.useEffect(() => {
+    const end = new Date(endAt);
+    const tick = () => {
+      const now = new Date();
+      const diff = end.getTime() - now.getTime();
+      if (diff <= 0) { setTimeLeft("종료"); return; }
+      setTimeLeft(formatDuration(diff));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [endAt]);
+
+  return <span className="font-mono text-3xl font-bold text-slate-800">{timeLeft}</span>;
+}
+
+export default function Dashboard() {
+  const [data, setData] = useState(INITIAL_DATA);
+
+  const filteredPrizes = useMemo(() => data.prizes, [data.prizes]);
+  const filteredSchedule = useMemo(() => data.schedule, [data.schedule]);
+  const filteredIncidents = useMemo(() => data.incidents, [data.incidents]);
+
+  const togglePrizeByKey = (team, item) => {
+    setData(prev => {
+      const idx = prev.prizes.findIndex(p => p.team === team && p.item === item);
+      if (idx < 0) return prev;
+      const next = { ...prev, prizes: [...prev.prizes] };
+      next.prizes[idx] = { ...next.prizes[idx], used: !next.prizes[idx].used };
+      return next;
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+        className="mx-auto max-w-7xl">
+        <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between relative">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">LG SW PM Competition 2025 — 운영 대시보드</h1>
+            <p className="text-sm text-slate-500">NovaHome Connect 문제를 해결하라</p>
+            <div className="mt-3">
+              <img src="https://github.com/pingjueuna/socalletter/pmc/assets/front.png?raw=true" alt="PMC Front" className="h-16 w-16 rounded-xl object-cover shadow-md" />
+            </div>
+          </div>
+          <div className="absolute top-0 right-0 mt-2 mr-2 flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-xl shadow">
+            <Clock className="h-6 w-6 text-slate-600"/>
+            <CountdownTimer endAt={new Date(new Date().setHours(17, 0, 0, 0))} />
+          </div>
+        </header>
+
+        <div className="mt-6 space-y-6">
+          <Card className="rounded-2xl shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2"><Clock className="h-5 w-5"/>내일 발표 순서</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredSchedule.map((s) => (
+                  <motion.div key={s.order + s.team}
+                    initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                    <div className="rounded-2xl border bg-white p-4 shadow-xs">
+                      <div className="flex items-center justify-between">
+                        <Badge variant="secondary" className="text-xs">#{s.order}</Badge>
+                        <Badge className="text-[10px]" variant="outline"><Clock className="h-3 w-3 mr-1"/>{s.time}</Badge>
+                      </div>
+                      <div className="mt-2 flex items-center gap-2">
+                        <Users className="h-4 w-4"/>
+                        <p className="font-medium">{s.team}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-2xl shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2"><Gift className="h-5 w-5"/>당첨 아이템 보드</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredPrizes.map((p, i) => (
+                  <motion.div key={p.team + i}
+                    initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
+                    <div className="rounded-2xl border bg-white p-4 shadow-xs">
+                      <div className="flex items-center justify-between">
+                        <p className="font-semibold">{p.team}</p>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={p.used ? "secondary" : "outline"}>{p.used ? "완료" : "오후 아이템"}</Badge>
+                          <div className="flex items-center gap-1">
+                            <Checkbox id={`used-${i}`} checked={!!p.used} onCheckedChange={() => togglePrizeByKey(p.team, p.item)} />
+                            <label htmlFor={`used-${i}`} className="text-xs text-slate-600 select-none">사용완료</label>
+                          </div>
+                        </div>
+                      </div>
+                      <p className={`mt-2 text-slate-700 ${p.used ? "line-through opacity-60" : ""}`}>{p.item}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-2xl shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2"><AlertTriangle className="h-5 w-5"/>팀별 돌발 이슈</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredIncidents.map((i, idx) => (
+                  <motion.div key={i.team + idx}
+                    initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                    <div className="rounded-2xl border bg-white p-4 shadow-xs">
+                      <div className="flex items-center justify-between">
+                        <p className="font-semibold">{i.team}</p>
+                        <Badge className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 text-white shadow-md">💪 화이팅!</Badge>
+                      </div>
+                      <p className="mt-2 text-slate-700">{i.issue}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-6 text-center text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} PM 데몬헌터스 · SWC · 게임형 PM 실습 대시보드</p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
