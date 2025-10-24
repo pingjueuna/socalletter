@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SW Project Management 역량인증 문제 체험 (3문항)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary:#b80000; /* LG 레드 톤 */
+      --primary-dark:#8c0000;
+      --ink:#1c1c1c;
+      --muted:#6b7280;
+      --card:#ffffffcc;
+      --ring:#ffcd00;
+      --ok:#10893e;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 10% -10%, #ffe5e5 0%, rgba(255,255,255,0) 60%),
+                  radial-gradient(900px 500px at 110% 10%, #fff6cc 0%, rgba(255,255,255,0) 60%),
+                  #f7f8fb;
+      background-attachment: fixed;
+    }
+
+    /* Header */
+    header { text-align:center; padding: 64px 20px 24px; position: relative; }
+    .eyebrow { display:inline-block; padding:6px 12px; border-radius:999px; background:#fff; box-shadow:0 4px 16px rgba(0,0,0,.06); font-weight:700; letter-spacing:.2px; }
+    header h1 { margin: 12px 0 6px; font-size: clamp(22px, 3.2vw, 34px); font-weight: 800; color: var(--primary); }
+    header p { margin: 0; color: var(--ink); opacity:.85; font-weight:600; }
+
+    /* Container */
+    .wrap { max-width: 980px; margin: 0 auto; padding: 8px 20px 60px; }
+
+    /* Progress */
+    .progress { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,255,255,.45)); border-bottom:1px solid #eee; }
+    .progress-bar { height: 6px; width: 0%; background: linear-gradient(90deg, var(--primary), #ff7a7a); border-radius: 999px; transition: width .4s ease; }
+    .progress-frame { max-width: 980px; margin: 0 auto; padding: 10px 20px; }
+
+    /* Card */
+    .card { background: var(--card); border: 1px solid rgba(0,0,0,.06); border-radius: 18px; box-shadow: 0 20px 40px rgba(0,0,0,.06); padding: 22px; margin: 18px 0 26px; }
+    .q-meta { display:flex; gap:10px; align-items:center; color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+    .pill { padding:4px 10px; border-radius:999px; background:#f3f4f6; font-weight:600; color:#374151; }
+    .pill.red { background: #ffeeee; color: var(--primary); }
+    .q-title { font-size: 17px; line-height: 1.6; font-weight: 700; margin: 8px 0 14px; }
+
+    /* Options */
+    .options { display:grid; gap:10px; }
+    .opt { position:relative; }
+    .opt input { position:absolute; opacity:0; pointer-events:none; }
+    .opt label { display:block; width:100%; border: 1.5px solid #e5e7eb; background:#fff; border-radius: 14px; padding: 12px 14px 12px 44px; cursor:pointer; line-height:1.55; transition: all .25s ease; box-shadow: 0 6px 18px rgba(0,0,0,.04); }
+    .opt label::before { content:''; position:absolute; left:12px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; border:2px solid #c7c9d1; background:#fff; transition: all .25s ease; }
+    .opt input:checked + label { border-color: var(--primary); box-shadow: 0 10px 28px rgba(184,0,0,.16); }
+    .opt input:checked + label::before { border-color: var(--primary); box-shadow: inset 0 0 0 6px var(--primary); }
+    .opt label:hover { transform: translateY(-1px); }
+
+    /* Submit */
+    .actions { text-align:center; margin-top: 28px; }
+    .btn { appearance:none; border:none; background: var(--primary); color:#fff; font-weight:800; padding: 14px 28px; border-radius: 999px; cursor:pointer; box-shadow: 0 10px 28px rgba(184,0,0,.18); transition: transform .08s ease, background .2s ease; }
+    .btn[disabled] { opacity:.5; cursor:not-allowed; }
+    .btn:active { transform: translateY(1px); }
+
+    /* Result */
+    .result { text-align:center; font-size: 22px; font-weight: 800; margin-top: 16px; }
+
+    /* Modal (success) */
+    .modal { position:fixed; inset:0; display:none; place-items:center; background: rgba(0,0,0,.35); z-index: 50; }
+    .modal-card { background:#fff; border-radius: 20px; padding: 30px 26px; text-align:center; width:min(520px, 92vw); box-shadow:0 40px 60px rgba(0,0,0,.25); }
+    .modal h3 { margin:0 0 6px; font-size: 22px; color: var(--ok); }
+    .sub { color:#374151; opacity:.9; margin:0 0 14px; }
+
+    /* Footer */
+    footer { text-align:center; color: var(--muted); font-size: 14px; padding: 34px 0 20px; }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-120vh) rotate(0deg); opacity: 0; }
+      10%{ opacity: 1; }
+      100%{ transform: translateY(110vh) rotate(720deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress">
+    <div class="progress-frame">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+  </div>
+
+  <header>
+    <span class="eyebrow">SW Project Management 역량인증 체험</span>
+    <h1>SW센터 사람이라면, 이정도 지식 쯤은 기본이죠 🔥</h1>
+    <p>PM역량인증은 아래와 같은 지필고사를 통과한 후, 현업과제를 평가하는 인증 심사로 진행됩니다. </p>
+  </header>
+
+  <main class="wrap">
+    <!-- Q1 -->
+    <section class="card" id="q1">
+      <div class="q-meta">
+        <span class="pill">난이도 하 · 오답률 0%</span>
+        <span class="pill red">역량: 통합관리</span>
+      </div>
+      <div class="q-title">
+        전사 프로젝트 관리 기준에 따라 게이트 단위로 승인 절차가 운영되는 환경에서, PM은 계획 수립 단계에서 범위, 일정, 품질, 자원, 리스크 등 개별 지표별 관리 계획서를 수립하였습니다. 그러나 통합적 정렬이나 계획 간 상호작용 분석(Plan Alignment Assessment) 없이 PMO의 초기 검토를 앞두고 있습니다. 이와 같은 상황에서 PM이 수행해야 할 계획 통합 활동으로 가장 적절한 것은 무엇입니까?
+      </div>
+      <div class="options">
+        <div class="opt"><input id="q1a1" type="radio" name="q1" value="1"><label for="q1a1">① 각 관리 계획의 산출물을 검토하여 수용 기준(Acceptance Criteria)에 대한 부합 여부를 확인하고, 통합 여부는 PMO의 Tailoring 전략에 위임한다.</label></div>
+        <div class="opt"><input id="q1a2" type="radio" name="q1" value="2"><label for="q1a2">② 위험 수용 기준(Risk Threshold)을 중심으로 일정 계획의 완충(Margin) 구조를 재구성하고, 기타 계획은 이를 기준으로 동기화한다.</label></div>
+        <div class="opt"><input id="q1a3" type="radio" name="q1" value="3"><label for="q1a3">③ 범위, 일정, 자원 계획 간의 의존성과 제약 조건을 통합 매트릭스(Dependency Mapping)로 구조화한 후, 계획 간 상호 간섭 항목을 식별하여 조정 전략을 수립한다.</label></div>
+        <div class="opt"><input id="q1a4" type="radio" name="q1" value="4"><label for="q1a4">④ 각 관리 계획 책임자와 조율하여 계획 요소 간 상충 가능성을 통합 관리 지침에 따라 조정하며, 결정은 게이트 리뷰 결과에 따른다.</label></div>
+      </div>
+    </section>
+
+    <!-- Q2 -->
+    <section class="card" id="q2">
+      <div class="q-meta">
+        <span class="pill">난이도 중 · 오답률 69%</span>
+        <span class="pill red">역량: 요구관리</span>
+      </div>
+      <div class="q-title">
+        Agile 환경에서 리스크 식별은 반복 주기마다 수행되어야 하며, 리스크의 유형과 영향도에 따라 우선적으로 식별해야 할 대상을 구분해야 합니다. 다음 중 Agile 프로젝트에서 가장 우선적으로 식별해야 할 리스크 유형으로 가장 적절한 것은 무엇입니까?
+      </div>
+      <div class="options">
+        <div class="opt"><input id="q2a1" type="radio" name="q2" value="1"><label for="q2a1">① 일정 지연 가능성이 있는 요구사항 변경 요청</label></div>
+        <div class="opt"><input id="q2a2" type="radio" name="q2" value="2"><label for="q2a2">② 요구사항에 대한 고객의 불명확한 설명</label></div>
+        <div class="opt"><input id="q2a3" type="radio" name="q2" value="3"><label for="q2a3">③ 팀원의 병가 또는 근무 시간 조정 이슈</label></div>
+        <div class="opt"><input id="q2a4" type="radio" name="q2" value="4"><label for="q2a4">④ 동일 기술 스택 내 이전 릴리즈에서 발생한 사소한 결함</label></div>
+      </div>
+    </section>
+
+    <!-- Q3 -->
+    <section class="card" id="q3">
+      <div class="q-meta">
+        <span class="pill">난이도 상 · 오답률 82%</span>
+        <span class="pill red">역량: 이해관계자 관리</span>
+      </div>
+      <div class="q-title">
+        신규 금융 시스템 구축 프로젝트 초기에 다양한 이해관계자들이 파악되었습니다.<br>ㆍ규제기관: 법적 승인권<br>ㆍ고객 담당자: 일정 개입<br>ㆍ내부 임원: 전략적 간접 영향<br>ㆍ특정 기술자: 직책 없음, 자문 빈번<br><br>PM은 이들의 영향력(Influence)을 이론적 기준에 따라 분석하고자 합니다. 다음 중 영향력을 가장 정확히 식별할 수 있는 요소는 무엇입니까?
+      </div>
+      <div class="options">
+        <div class="opt"><input id="q3a1" type="radio" name="q3" value="1"><label for="q3a1">① 공식 권한 여부와 무관하게 특정 결정에 실질적 영향을 미치는 관계 기반 네트워크의 존재 여부</label></div>
+        <div class="opt"><input id="q3a2" type="radio" name="q3" value="2"><label for="q3a2">② 고객의 기대 수준과 소통 빈도에 따른 프로젝트 개입 가능성</label></div>
+        <div class="opt"><input id="q3a3" type="radio" name="q3" value="3"><label for="q3a3">③ 내부 보고 체계 내 직책의 명문화 여부 및 승인 절차 관여 범위</label></div>
+        <div class="opt"><input id="q3a4" type="radio" name="q3" value="4"><label for="q3a4">④ 자문적 역할을 반복 수행하는 기술 인력의 의견 개진 빈도 및 회의 참여 기록</label></div>
+      </div>
+    </section>
+
+    <div class="actions"><button id="submit" class="btn" disabled>제출하기</button></div>
+    <div id="result" class="result"></div>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h3>🎉 LG SW PM역량인증 합격을 축하합니다!</h3>
+      <p class="sub">3문제 모두 정답입니다. 당신의 PM 감각, 탁월합니다.</p>
+      <button class="btn" id="again">2026년부터 PM 역량 인증이 전사로 확대됩니다. PMP 자격증에 준하는 직무 역량 평가점수를 부여하오니, 많은 관심과 참여 부탁드립니다.</button>
+    </div>
+  </div>
+
+  <script>
+    const answers = { q1:'3', q2:'2', q3:'1' };
+    const total = Object.keys(answers).length;
+
+    const submitBtn = document.getElementById('submit');
+    const resultEl  = document.getElementById('result');
+    const modal = document.getElementById('modal');
+    const again = document.getElementById('again');
+    const bar = document.getElementById('bar');
+
+    // enable submit when all answered
+    document.addEventListener('change', () => {
+      let answered = 0;
+      for (const q of Object.keys(answers)) {
+        if (document.querySelector(`input[name="${q}"]:checked`)) answered++;
+      }
+      bar.style.width = (answered/total*100) + '%';
+      submitBtn.disabled = answered !== total;
+    });
+
+    function launchConfetti() {
+      for (let i=0; i<80; i++) {
+        const s = document.createElement('div');
+        s.style.position = 'fixed';
+        s.style.left = Math.random()*100 + 'vw';
+        s.style.top = '-10vh';
+        s.style.width = s.style.height = (Math.random()*8+6) + 'px';
+        s.style.background = `hsl(${Math.random()*360}, 85%, 60%)`;
+        s.style.borderRadius = Math.random() > .5 ? '2px' : '50%';
+        s.style.transform = `rotate(${Math.random()*360}deg)`;
+        s.style.animation = `confettiFall ${Math.random()*1.2+1.8}s ease-out forwards`;
+        s.style.pointerEvents = 'none';
+        document.body.appendChild(s);
+        setTimeout(()=> s.remove(), 2600);
+      }
+    }
+
+    submitBtn.addEventListener('click', () => {
+      let correct = 0;
+      for (const [q, ans] of Object.entries(answers)) {
+        const checked = document.querySelector(`input[name="${q}"]:checked`);
+        if (checked && checked.value === ans) correct++;
+      }
+
+      if (correct === total) {
+        resultEl.textContent = '';
+        modal.style.display = 'grid';
+        launchConfetti();
+      } else {
+        resultEl.style.color = 'var(--primary)';
+        resultEl.textContent = `총 ${correct}문항 정답입니다. 다시 도전해보세요!`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    again.addEventListener('click', () => {
+      modal.style.display = 'none';
+      document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+      bar.style.width = '0%';
+      submitBtn.disabled = true;
+      resultEl.textContent = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+  <footer>
+    ⓒ LG Electronics · Software College — PM 역량은 습관입니다.
+  </footer>
+</body>
+</html>
