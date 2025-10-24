@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SW Project Management 역량 프로그램</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      margin: 0;
+      background: #f8f9fb;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+      animation: fadeInDown 1s ease;
+    }
+
+    header h1 {
+      color: #b80000;
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    header h2 {
+      color: #b80000;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    header p {
+      color: #333;
+      font-size: 1rem;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    section {
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .program-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .highlight-bar {
+      background: #ffcd00;
+      padding: 10px;
+      font-weight: 700;
+      color: #333;
+      border-radius: 8px;
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: white;
+      width: 300px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .btn-start {
+      display: inline-block;
+      margin-top: 20px;
+      background: #b80000;
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn-start:hover {
+      background: #8c0000;
+    }
+
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes pulse {
+      0% {box-shadow: 0 0 0 0 rgba(255,205,0,0.6);}
+      70% {box-shadow: 0 0 0 15px rgba(255,205,0,0);}
+      100% {box-shadow: 0 0 0 0 rgba(255,205,0,0);}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SW센터 사람이라면, 이정도 열정쯤은 기본이죠 🔥</h1>
+    <h2>통과하면 ‘PM의 정석’, 도전만으로도 당신은 이미 멋진 PM! 실패해도 ‘굿즈’는 함께합니다 ^^</h2>
+  </header>
+
+  <section>
+    <div class="program-title">‘SW Project Management’ 역량 육성 프로그램</div>
+    <div class="desc">Individual(개인) 인증과 Team-Based Competition(팀 기반) 중<br>당신의 스타일에 맞는 트랙을 선택하고 퀴즈로 바로 도전하세요.</div>
+
+    <div class="highlight-bar">PM역량인증과 PMC 2025 중 하나를 선택하세요 🚀</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>PM 역량인증</h3>
+        <p>SW Project Management 핵심 역량을 스스로 검증하고,<br>진짜 ‘PM의 기본기’를 완성하세요.</p>
+        <a href="#" class="btn-start">체험 시작 ▶</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <h3>PMC 2025</h3>
+        <p>팀워크와 전략으로 승부하는 PM Competition!<br>함께 성장하고, 함께 즐기는 진짜 PM 경험.</p>
+        <a href="#" class="btn-start">체험 시작 ▶</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
