@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LG SW PM Competition 2025 · 예선 미션 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+:root{--primary:#b80000;--ink:#1c1c1c;--muted:#6b7280;--card:#fff;--ring:#e5e7eb;}
+body{margin:0;font-family:'Pretendard',sans-serif;background:#f7f8fb;color:var(--ink);}
+/* 상단 네비게이션 */
+.navbar{background:#fff;border-bottom:3px solid var(--primary);box-shadow:0 4px 8px rgba(0,0,0,.08);}
+.navbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--primary);}
+.tabs{display:flex;gap:10px;}
+.tab{padding:10px 18px;font-weight:700;color:#555;cursor:pointer;border-radius:6px 6px 0 0;transition:all .2s;}
+.tab.active{background:var(--primary);color:#fff;}
+.tab:hover{background:#f2f2f2;}
+header{background:#b80000;color:#fff;padding:30px 20px;text-align:center;}
+header h1{margin:0;font-size:24px;}
+header p{margin:10px 0 0;font-size:15px;}
+.container{max-width:1000px;margin:40px auto;padding:0 20px;display:grid;grid-template-columns:2fr 1fr;gap:20px;}
+.card{background:var(--card);border:1px solid var(--ring);border-radius:14px;box-shadow:0 10px 20px rgba(0,0,0,.05);padding:24px;margin-bottom:24px;}
+.card h2{color:var(--primary);margin-top:0;}
+ul{padding-left:20px;}
+.btn{display:inline-block;margin-top:10px;padding:10px 20px;border:none;border-radius:8px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;}
+.quiz h2{color:#10893e;}
+@media(max-width:900px){.container{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="logo">LG SW PM Competition 2025</div>
+      <div class="tabs">
+        <div class="tab active" onclick="navigate('mission1.html')">예선전 - 미션 1</div>
+        <div class="tab" onclick="navigate('mission2.html')">예선전 - 미션 2</div>
+        <div class="tab" onclick="navigate('final.html')">본선</div>
+      </div>
+    </div>
+  </div>
+
+<header>
+<h1>예선 미션 1. 프로젝트 관리 ‘데몬 리포트’ 제출</h1>
+<p>여러분을 프로젝트 데몬 헌터로 임명합니다 🔥</p>
+</header>
+
+<div class="container">
+  <div>
+    <section class="card">
+      <h2>📘 미션 소개</h2>
+      <p>프로젝트 성공을 방해하는 다양한 ‘데몬(문제요소)’을 찾아 이를 개선하는 것이 여러분의 역할입니다. <br>
+      LG SW PM역량 정의서를 활용하여 <b>프로젝트 데몬을 개선</b>하고 <b>프로젝트 혼돈을 사수</b>하는 것이 이번 미션의 핵심입니다.</p>
+
+      <h3>예선 미션 안내</h3>
+      <ol>
+        <li>프로젝트 경험을 공유하며 어떤 데몬이 성공을 방해했는지 논의합니다.</li>
+        <li>가장 강력한 데몬 사례를 선정해 <b>‘우리 팀 데몬 사례’</b>로 정리합니다.</li>
+        <li>아래 항목에 따라 <b>데몬 리포트</b>를 제출합니다. (〆 8/28 23:59)</li>
+      </ol>
+      <ul>
+        <li>프로젝트명, 팀명</li>
+        <li>참가 인원 및 역할</li>
+        <li>프로젝트 데몬 상황</li>
+        <li>데몬이 프로젝트에 끼친 영향</li>
+        <li>개선 아이디어 및 관리 전략</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>💡 우수사례 하이라이트</h2>
+      <p>아래는 실제 LG SW PM 프로젝트의 데몬 개선 성공 사례입니다.</p>
+
+      <div class="case">
+        <h3 style="color:#b80000">A. 외부 협업·SDK 이슈 → 프로세스 자산화</h3>
+        <ul>
+          <li>협력사 인터페이스 정의서 표준화 → 승인/변경 자동화</li>
+          <li>릴리즈 캘린더 + CCB 운영 룰 명문화 → 리드타임 60% 단축</li>
+        </ul>
+      </div>
+
+      <div class="case">
+        <h3 style="color:#111">B. 사내 표준 간극 → 릴리즈·CI 파이프라인 정렬</h3>
+        <ul>
+          <li>브랜치 전략/릴리즈 캘린더 통합 → 이슈 롤백 비용 46% 감소</li>
+          <li>자동화된 품질 게이트(SAST/커버리지)로 승인 기준 명확화</li>
+        </ul>
+      </div>
+
+      <div class="case">
+        <h3 style="color:#ffcd00">C. 요구변경 반복 → 요구 베이스라인 & 커뮤니케이션 룰</h3>
+        <ul>
+          <li>요구 베이스라인 및 영향분석 도입 → 스코프 크리프 차단</li>
+          <li>CCB 도입, 이해관계자 맵으로 권한/책임 정렬</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <aside class="quiz card">
+    <h2>🧩 미니 퀴즈</h2>
+    <p>다음 중, 우수사례의 <b>장점이 아닌 것</b>은 무엇일까요?</p>
+    <form id="quizForm">
+      <label><input type="radio" name="quiz" value="1"> ① 협업과 품질관리 체계의 표준화</label><br>
+      <label><input type="radio" name="quiz" value="2"> ② 명확한 승인 절차와 리스크 대응력 강화</label><br>
+      <label><input type="radio" name="quiz" value="3"> ③ 개인의 역량 중심 해결로 일시적 성과 달성</label><br>
+      <label><input type="radio" name="quiz" value="4"> ④ 데이터 기반 의사결정과 프로세스 명문화</label><br>
+      <button type="button" class="btn" onclick="checkAnswer()">정답 확인</button>
+      <p id="result"></p>
+    </form>
+  </aside>
+</div>
+
+<script>
+function navigate(url){
+  window.location.href=url;
+}
+
+function checkAnswer(){
+ const selected=document.querySelector('input[name="quiz"]:checked');
+ const result=document.getElementById('result');
+ if(!selected){result.textContent='문항을 선택하세요.';result.style.color='var(--muted)';return;}
+ if(selected.value==='3'){
+   result.textContent='정답! 우수사례는 개인이 아닌 프로세스 중심 개선을 강조합니다.';
+   result.style.color='#10893e';
+ } else {
+   result.textContent='오답입니다. 다시 한번 우수사례의 핵심을 확인해보세요.';
+   result.style.color='var(--primary)';
+ }
+}
+</script>
+</body>
+</html>
