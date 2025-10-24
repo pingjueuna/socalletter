@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LG SW PM Competition 2025 · 본선</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+:root{ --primary:#b80000; --ink:#111418; --muted:#6b7280; --card:#fff; --ok:#10893e; }
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; font-family:'Pretendard',system-ui,-apple-system,'Noto Sans KR',sans-serif; color:var(--ink);
+  background: radial-gradient(1200px 600px at 10% -10%, #ffe5e5 0%, rgba(255,255,255,0) 60%),
+              radial-gradient(900px 500px at 110% 10%, #fff6cc 0%, rgba(255,255,255,0) 60%), #f7f8fb;
+  background-attachment: fixed;
+}
+
+/* Topbar + Tabs */
+.topbar{background:#fff; border-bottom:1px solid #eee;}
+.topbar-inner{max-width:1100px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; justify-content:space-between;}
+.brand{font-weight:900; color:#111; text-decoration:none}
+.brand::before{content:""; display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--primary); margin-right:8px}
+.tabs{display:flex; gap:18px; align-items:center}
+.tab{display:inline-block; padding:8px 14px; border-radius:999px; font-weight:800; text-decoration:none; color:#333; transition:all .2s ease}
+.tab:hover{color:var(--primary)} .tab.active{background:var(--primary); color:#fff; box-shadow:0 6px 18px rgba(184,0,0,.25)}
+
+/* Hero band */
+.band{background:var(--primary); color:#fff; text-align:center; padding:26px 16px}
+.band h1{margin:0 0 6px; font-size:clamp(18px,2.6vw,22px); font-weight:900}
+.band p{margin:0; opacity:.95; font-weight:700}
+
+/* Layout */
+.wrap{max-width:1100px; margin:0 auto; padding:28px 20px 70px}
+.section{background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:18px; box-shadow:0 18px 36px rgba(0,0,0,.06); padding:22px; margin:18px 0 26px}
+.section h2{margin:0 0 10px; font-size:20px}
+
+/* Video */
+.video-wrap{position:relative; width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+
+/* Cards */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.card{background:#fff; border:1px solid #e7e8ee; border-radius:14px; padding:16px 16px 18px; box-shadow:0 12px 24px rgba(0,0,0,.06)}
+.card h3{margin:0 0 8px; font-size:18px}
+.card p{margin:0 0 12px; color:#374151; line-height:1.6}
+.btn{appearance:none; border:none; background:var(--primary); color:#fff; font-weight:900; padding:12px 18px; border-radius:999px; cursor:pointer; text-decoration:none; display:inline-block; box-shadow:0 10px 28px rgba(184,0,0,.18)}
+.btn.secondary{background:#111}
+.badge{display:inline-block; padding:4px 10px; border-radius:999px; background:#f3f4f6; color:#374151; font-weight:800; margin-left:6px}
+
+/* Promo */
+.promo{background:linear-gradient(90deg,#ffe5e5,#fff6cc); border:1px solid #f3d2d2; padding:20px; border-radius:16px}
+.promo h3{margin:0 0 8px; color:var(--primary); font-size:20px}
+.promo p{margin:0; font-weight:700}
+
+/* Footer */
+footer{text-align:center; color:#6b7280; font-size:14px; padding:34px 0 26px}
+</style>
+</head>
+<body>
+
+  <!-- 상단 네비 -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="https://pingjueuna.github.io/socalletter/pm/pmcintro.html">LG SW PM Competition 2025</a>
+      <nav class="tabs">
+        <a href="https://pingjueuna.github.io/socalletter/pm/pmcintro.html" class="tab">소개</a>
+        <a href="https://pingjueuna.github.io/socalletter/pm/pmcmission1.html" class="tab">예선전 - 미션 1</a>
+        <a href="https://pingjueuna.github.io/socalletter/pm/pmcmission2.html" class="tab">예선전 - 미션 2</a>
+        <a href="https://pingjueuna.github.io/socalletter/pm/pmcfinal.html" class="tab active">본선</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="band">
+    <h1>본선. 모의 프로젝트 Case Study – 발표 & 질의응답</h1>
+    <p>모의 문제 시나리오를 읽고, <strong>문제 정의 → 원인 분석 → 대응 방안 → 장기적 예방안</strong>까지 제시하세요.</p>
+  </div>
+
+  <main class="wrap">
+
+    <!-- 문제 영상 -->
+    <section class="section">
+      <h2>🎬 본선 문제 영상 (페이지 내 재생)</h2>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/Hm13qr-_0yI?list=PLgqm0A83muLMzGn4EAgYLZWjAkywtZVz4&rel=0&modestbranding=1&playsinline=1"
+          title="PM Competition Final Case"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+     
+    </section>
+
+    <!-- 본선 진출팀 발표 모음 -->
+    <section class="section">
+      <h2>🏁 본선 진출팀 발표 모음</h2>
+      <p style="margin-bottom:20px; color:#374151">
+        본선 무대에 오른 팀들의 발표 영상을 시청해보세요.<br>
+        본선에 진출하신 여러분 축하드려요👍, <strong>SW College 채널 구독과 좋아요 ❤️</strong> 누르면 굿즈를 드립니다 🎁
+      </p>
+
+      <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:18px;">
+        <div class="card">
+          <h3>🏆 최우수상 · 유플러스원</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/KfAHm5_vSKI?si=Salhs9MUCnSV-sjY" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · 나는 PM</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/xkLmYEr3IK0?si=Nint-DnQyinl7rWx" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · TrioSpark</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/Yg-XoQG4V88?si=lnX15jCWpzxIuIHB" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · Red Signal Rangers</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/ZUqNfP9o9es?si=br2Uj09plJlfF85k" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · PPT</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/d3JNsIQIHlw?si=1_sGq5WWnKuSWGwn" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · TriPM</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/9uxqTNne6iE?si=Xro4bA71mcy7wRgH" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🥇 우수상 · PM 기술원 A팀</h3>
+          <div class="video-wrap" style="aspect-ratio:16/9; border-radius:12px; overflow:hidden;">
+            <iframe src="https://www.youtube.com/embed/PGL8vi6kiCA?si=4pdAwCqZZ6ULhUHx" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top:24px; font-weight:700;">
+        🎬 전체 플레이리스트 보기 →
+        <a href="https://www.youtube.com/playlist?list=PLgqm0A83muLMzGn4EAgYLZWjAkywtZVz4" target="_blank" style="color:#b80000; text-decoration:none; font-weight:800;">
+          PM Competition YouTube
+        </a>
+      </p>
+    </section>
+
+    <!-- 2026 홍보 배너 -->
+    <section class="section promo">
+      <h3>LG SW PM Competition 2026 · 사전 안내</h3>
+      <p>
+        내년엔 <strong>우리 SW센터</strong>가 대거 참가해서 <strong>유플러스의 연승</strong>을 막아주세요 😄 많은 참석 부탁드립니다!<br><br>
+        LG SW PM Competition 2026에서는 <strong>LG 자매사 간 치열한 경연의 장</strong>이 될 예정이며,<br>
+        <strong>우승팀에게는 북미 PIM 글로벌 컨퍼런스 티켓</strong>이 제공됩니다. 많은 참석 부탁드립니다!
+      </p>
+    </section>
+  </main>
+
+  <footer>ⓒ LG Electronics · Software Center</footer>
+</body>
+</html>
 
