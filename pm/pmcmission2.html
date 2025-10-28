@@ -10,95 +10,52 @@
   --primary:#b80000; --ink:#1b1d21; --muted:#6b7280; --ok:#10893e; --card:#fff;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
 body{
   margin:0; font-family:'Pretendard',system-ui,-apple-system,'Noto Sans KR',sans-serif; color:var(--ink);
-  background: radial-gradient(1200px 600px at 10% -10%, #ffe5e5 0%, rgba(255,255,255,0) 60%),
-              radial-gradient(900px 500px at 110% 10%, #fff6cc 0%, rgba(255,255,255,0) 60%), #f7f8fb;
-  background-attachment: fixed;
+  background:#f7f8fb;
 }
-
-/* ============ TOPBAR + TABS (맨 위) ============ */
-.topbar{background:#fff; border-bottom:1px solid #eee;}
-.topbar-inner{max-width:1100px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; justify-content:space-between;}
-.brand{font-weight:900; color:#111;}
-.brand::before{content:""; display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--primary); margin-right:8px}
-.tabs{display:flex; gap:18px; align-items:center}
-.tab{display:inline-block; padding:8px 14px; border-radius:999px; font-weight:800; text-decoration:none; color:#333; transition:all .2s ease}
-.tab:hover{color:var(--primary)}
-.tab.active{background:var(--primary); color:#fff; box-shadow:0 6px 18px rgba(184,0,0,.25)}
-
-/* ============ RED HERO BAND (제목 띠) ============ */
-.band{background:var(--primary); color:#fff; text-align:center; padding:26px 16px}
-.band h1{margin:0 0 6px; font-size:clamp(18px,2.6vw,22px); font-weight:900; letter-spacing:.2px}
-.band p{margin:0; opacity:.95; font-weight:700}
-
-/* hero image (두둥두둥) */
-.hero { text-align:center; margin:6px 20px 0; overflow:hidden; animation: drumIntro 1.5s ease-out; }
-.hero-img { width:100%; max-width:980px; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,.25); transform: scale(0.9); opacity:0; animation: heroAppear 2s ease forwards 0.6s; }
-@keyframes drumIntro { 0%{transform:scale(1)} 25%{transform:scale(1.05)} 50%{transform:scale(0.97)} 75%{transform:scale(1.03)} 100%{transform:scale(1)} }
-@keyframes heroAppear { 0%{opacity:0;transform:scale(0.9);filter:brightness(0.6)} 50%{opacity:1;transform:scale(1.03);filter:brightness(1.2)} 100%{opacity:1;transform:scale(1);filter:brightness(1)} }
-
-/* progress */
-.progress{position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
-  background:linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,255,255,.45)); border-bottom:1px solid #eee;}
-.progress-frame{max-width:980px; margin:0 auto; padding:10px 20px}
-.progress-bar{height:8px; width:0%; background:linear-gradient(90deg, var(--primary), #ff7a7a); border-radius:999px; transition:width .35s ease}
-
-/* container */
-.wrap{max-width:980px; margin:0 auto; padding:10px 20px 60px}
-.gate{background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:18px; box-shadow:0 18px 36px rgba(0,0,0,.06); padding:22px; margin:18px 0 26px; position:relative}
-.gate.locked::after{content:"🔒 다음 관문은 잠겨 있습니다"; position:absolute; inset:auto 14px 14px auto; font-weight:700; color:#9ca3af; background:#f9fafb; border:1px dashed #e5e7eb; padding:6px 10px; border-radius:8px}
-.gate h2{margin:0 0 8px; font-size:18px}
-.meta{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:14px; margin-bottom:8px}
-.pill{padding:4px 10px; border-radius:999px; background:#f3f4f6; font-weight:700; color:#374151}
-.pill.red{background:#ffeeee; color:var(--primary)}
-.q{font-weight:800; margin:10px 0 12px}
-.options{display:grid; gap:10px}
-.opt{position:relative}
-.opt input{position:absolute; opacity:0; pointer-events:none}
-.opt label{display:block; width:100%; border:1.5px solid #e5e7eb; background:#fff; border-radius:14px; padding:12px 14px 12px 44px; cursor:pointer; line-height:1.55; transition:all .25s ease; box-shadow:0 6px 18px rgba(0,0,0,.04)}
-.opt label::before{content:''; position:absolute; left:12px; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; border:2px solid #c7c9d1; background:#fff; transition: all .25s ease}
-.opt input:checked + label{border-color:var(--primary); box-shadow:0 10px 28px rgba(184,0,0,.16)}
-.opt input:checked + label::before{border-color:var(--primary); box-shadow: inset 0 0 0 6px var(--primary)}
-.opt label:hover{transform:translateY(-1px)}
-.actions{display:flex; gap:10px; margin-top:14px}
-.btn{appearance:none; border:none; background:var(--primary); color:#fff; font-weight:900; padding:12px 18px; border-radius:999px; cursor:pointer; box-shadow:0 10px 28px rgba(184,0,0,.18); transition:transform .08s ease, background .2s ease}
-.btn.secondary{background:#111}
-.btn:active{transform:translateY(1px)}
+ 
+/* 기본 숨김 처리 */
 .hint{display:none; color:#374151; background:#fff; border:1px dashed #e5e7eb; border-radius:12px; padding:10px 12px; margin-top:10px}
-
-/* audio upload */
-.audio-box{display:flex; gap:10px; align-items:center; background:#fff; border:1px dashed #e5e7eb; padding:10px 12px; border-radius:12px; margin:10px 0}
-.audio-box input{flex:1}
-
-/* Drag & Drop ordering (Gate 3) */
-.sortable{list-style:none; padding:0; margin:0; display:grid; gap:10px}
-.sortable li{background:#fff; border:1.5px solid #e5e7eb; border-radius:12px; padding:12px; box-shadow:0 6px 18px rgba(0,0,0,.04); cursor:grab}
-.sortable li.dragging{opacity:.6; border-style:dashed}
-.badge{display:inline-block; min-width:22px; text-align:center; font-weight:900; background:#111; color:#fff; border-radius:6px; padding:2px 6px; margin-right:8px}
-
-/* modals */
-.modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.35); z-index:50}
-.modal-card{background:#fff; border-radius:20px; padding:26px 22px; text-align:center; width:min(520px,92vw); box-shadow:0 40px 60px rgba(0,0,0,.25)}
-.modal h3{margin:0 0 6px; font-size:22px}
-.modal .ok{color:var(--ok)}
-.modal .fail{color:var(--primary)}
-.sub{color:#374151; opacity:.9; margin:0 0 14px}
-
-/* result strip */
-.result-strip{position:sticky; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; display:flex; justify-content:center; gap:12px; padding:12px; z-index:10}
-.result-strip .pill{background:#f3f4f6}
-
-footer{text-align:center; color:#6b7280; font-size:14px; padding:26px 0 20px}
-
-/* confetti anim */
-@keyframes confettiFall{ 0%{transform:translateY(-120vh) rotate(0deg); opacity:0} 10%{opacity:1} 100%{transform:translateY(110vh) rotate(720deg); opacity:1} }
+ 
+.topbar{background:#fff; border-bottom:1px solid #eee;}
+.topbar-inner{max-width:1100px; margin:0 auto; padding:10px 20px; display:flex; justify-content:space-between;}
+.tabs{display:flex; gap:10px;}
+.tab{padding:8px 14px; border-radius:999px; text-decoration:none; color:#333; font-weight:700;}
+.tab.active{background:#b80000; color:#fff;}
+ 
+.band{background:#b80000; color:#fff; text-align:center; padding:24px;}
+.hero{text-align:center; margin:10px;}
+.hero img{width:100%; max-width:900px; border-radius:20px;}
+ 
+.progress{position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid #eee;}
+.progress-frame{max-width:980px; margin:0 auto; padding:10px;}
+.progress-bar{height:8px; width:0%; background:linear-gradient(90deg, #b80000, #ff7a7a); border-radius:999px; transition:width .3s ease;}
+ 
+.wrap{max-width:980px; margin:0 auto; padding:20px;}
+.gate{background:#fff; border:1px solid #eee; border-radius:16px; padding:22px; margin-bottom:30px;}
+.gate.locked::after{content:"🔒 잠김"; position:absolute; right:20px; bottom:10px; color:#999;}
+ 
+.audio-box{background:#fff; border:1px dashed #e5e7eb; padding:10px; border-radius:12px; margin:10px 0;}
+.audio-box audio{width:100%;}
+ 
+.options{display:grid; gap:8px;}
+.opt label{display:block; border:1px solid #ddd; border-radius:12px; padding:10px 12px; cursor:pointer;}
+.opt input:checked + label{border-color:#b80000; background:#fff0f0;}
+ 
+.actions{margin-top:12px;}
+.btn{background:#b80000; color:#fff; border:none; padding:10px 16px; border-radius:999px; font-weight:700; cursor:pointer;}
+ 
+.result-strip{position:sticky; bottom:0; background:#fff; border-top:1px solid #eee; text-align:center; padding:10px;}
+.result-strip .pill{margin:0 8px;}
+ 
+.modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.3);}
+.modal-card{background:#fff; border-radius:16px; padding:24px; text-align:center; width:min(420px,90vw);}
 </style>
 </head>
 <body>
-
-  <!-- 맨 위: 브랜드 + 탭 -->
+ 
+<!-- 맨 위: 브랜드 + 탭 -->
   <div class="topbar">
     <div class="topbar-inner">
       <a href="https://pingjueuna.github.io/socalletter/pm/pmcintro.html" class="logo">
@@ -113,81 +70,76 @@ footer{text-align:center; color:#6b7280; font-size:14px; padding:26px 0 20px}
       </nav>
     </div>
   </div>
-
-  <!-- 레드 히어로 밴드 -->
-  <div class="band">
-    <h1>예선 미션 2. 프로젝트 관리 ‘방 탈출’</h1>
-    <p>프로젝트의 혼돈을 물리치는 데몬 헌터스로 임명합니다 🔥</p>
+ 
+<div class="band">
+  <h1>예선 미션 2. 프로젝트 관리 ‘방 탈출’</h1>
+  <p>PM의 판단력을 테스트합니다 🔥</p>
+</div>
+ 
+<div class="progress">
+  <div class="progress-frame">
+    <div id="bar" class="progress-bar"></div>
   </div>
-
-  <!-- sticky progress -->
-  <div class="progress"><div class="progress-frame"><div id="bar" class="progress-bar"></div></div></div>
-
-  <!-- 두둥두둥 이미지 -->
-  <section class="hero">
-    <img src="https://pingjueuna.github.io/socalletter/mission2.jpg" alt="Demon Hunters" class="hero-img" />
+</div>
+ 
+<div class="hero">
+  <img src="https://pingjueuna.github.io/socalletter/mission2.jpg" alt="Demon Hunters" />
+</div>
+ 
+<main class="wrap">
+  <!-- GATE 1 -->
+  <section id="gate1" class="gate">
+    <div><b>Gate 1.</b> 듣기평가 · 임베디드 SW 초기회의</div>
+    <h2>문제 1. 다음 대화를 듣고, PM의 핵심 관리 역량을 고르시오.</h2>
+    <div class="audio-box">
+      <audio controls src="https://pingjueuna.github.io/socalletter/pm/Gate1_Q2.mp3"></audio>
+    </div>
+    <div class="options">
+      <div class="opt"><input id="g1a1" type="radio" name="g1" value="1"><label for="g1a1">요구사항 관리</label></div>
+      <div class="opt"><input id="g1a2" type="radio" name="g1" value="2"><label for="g1a2">리스크 관리</label></div>
+      <div class="opt"><input id="g1a3" type="radio" name="g1" value="3"><label for="g1a3">일정 관리</label></div>
+      <div class="opt"><input id="g1a4" type="radio" name="g1" value="4"><label for="g1a4">이해관계자 참여 관리</label></div>
+    </div>
+    <div class="actions"><button class="btn" id="submitG1">제출</button></div>
+    <div class="hint">정답 해설: 잠재 위험을 선제 식별·대응 → <b>리스크 관리</b>.</div>
   </section>
-
-  <main class="wrap">
-    <!-- GATE 1 -->
-    <section id="gate1" class="gate">
-      <div class="meta">
-        <span class="pill">Gate 1</span>
-        <span class="pill red">듣기평가 · 임베디드 SW 초기회의</span>
-      </div>
-      <h2>문제 1. 다음 대화를 듣고, PM의 핵심 관리 역량을 고르시오.</h2>
-      <div class="audio-box">
-      <audio id="player" src="https://pingjueuna.github.io/socalletter/pm/Gate1_Q2.mp3" controls preload="metadata"></audio>
-      </div>
-      <div class="q">위 대화에서 PM이 보여준 가장 핵심적인 관리 역량은 무엇인가요?</div>
-      <div class="options">
-        <div class="opt"><input id="g1a1" type="radio" name="g1" value="1"><label for="g1a1">요구사항 관리 (Requirements Management)</label></div>
-        <div class="opt"><input id="g1a2" type="radio" name="g1" value="2"><label for="g1a2">리스크 관리 (Risk Management)</label></div>
-        <div class="opt"><input id="g1a3" type="radio" name="g1" value="3"><label for="g1a3">일정 관리 (Schedule Management)</label></div>
-        <div class="opt"><input id="g1a4" type="radio" name="g1" value="4"><label for="g1a4">이해관계자 참여 관리 (Stakeholder Engagement Management)</label></div>
-      </div>
-      <div class="actions"><button class="btn" id="submitG1">Gate 1 제출</button></div>
-      <div class="hint">정답 해설: 잠재 위험(라이선스 검증 지연·장비 충돌 등) 선제 식별·대응 계획 수립 → <b>리스크 관리</b>.</div>
-    </section>
-
-    <!-- GATE 2 -->
-    <section id="gate2" class="gate locked" style="display:none;">
-      <div class="meta"><span class="pill">Gate 2</span><span class="pill">Agile · Burndown & Gantt</span></div>
-      <h2>문제 2. Burn-down 잔여 작업선이 추세선 위, Gantt의 QA는 예정일 초과. 타당한 해석은?</h2>
-      <div class="options">
-        <div class="opt"><input id="g2a1" type="radio" name="g2" value="1"><label for="g2a1">① QA는 후반 집중이므로 초기 지연·상승은 정상 범위</label></div>
-        <div class="opt"><input id="g2a2" type="radio" name="g2" value="2"><label for="g2a2">② Burn-down 상승은 기술부하 반영 가능, QA 지연과 직접 연결 아님</label></div>
-        <div class="opt"><input id="g2a3" type="radio" name="g2" value="3"><label for="g2a3">③ 개발 진척 저조 & QA 미착수 → 릴리즈 일정 위험 신호</b></label></div>
-        <div class="opt"><input id="g2a4" type="radio" name="g2" value="4"><label for="g2a4">④ 비개발 업무 선반영으로 잔여 작업 많아 보일 뿐, 일정 위험과 무관</label></div>
-      </div>
-      <div class="actions"><button class="btn" id="submitG2">Gate 2 제출</button></div>
-      <div class="hint">정답 해설: Burndown 악화 + Gantt 지연 동시 발생은 구조적 일정지연 신호 → <b>③</b>.</div>
-    </section>
-
-    <!-- GATE 3 -->
-    <section id="gate3" class="gate locked" style="display:none;">
-      <div class="meta"><span class="pill">Gate 3</span><span class="pill red">변경관리 시퀀싱</span></div>
-      <h2>문제 3. 올바른 <u>변경관리 절차</u> 순서를 배열하시오. (드래그하여 순서 정렬)</h2>
-      <ol id="sortable" class="sortable">
-        <li draggable="true" data-id="1"><span class="badge">1</span>변경이 일정·비용·품질·리스크에 미치는 영향 다각도 분석</li>
-        <li draggable="true" data-id="2"><span class="badge">2</span>변경 통제 위원회(CCB) 상정 및 승인 결정</li>
-        <li draggable="true" data-id="3"><span class="badge">3</span>변경 요청을 공식 문서(Change Request)로 등록</li>
-        <li draggable="true" data-id="4"><span class="badge">4</span>승인된 변경을 일정/산출물에 반영하고 이해관계자 공지</li>
-      </ol>
-      <div class="actions"><button class="btn" id="submitG3">최종 제출</button></div>
-      <div class="hint">정답 해설: <b>3 → 1 → 2 → 4</b> (문서화 → 영향도 분석 → CCB 승인 → 반영·공지)</div>
-    </section>
-  </main>
-
-  <!-- sticky result strip -->
-  <div class="result-strip">
-    <span class="pill">Gate 1: <b id="s1">대기</b></span>
-    <span class="pill">Gate 2: <b id="s2">잠김</b></span>
-    <span class="pill">Gate 3: <b id="s3">잠김</b></span>
-  </div>
-
-  <!-- Success & Fail Modals -->
-  <div id="success" class="modal">
+ 
+  <!-- GATE 2 -->
+  <section id="gate2" class="gate locked" style="display:none;">
+    <div><b>Gate 2.</b> Agile · Burndown & Gantt</div>
+    <h2>문제 2. Burn-down이 추세선 위, Gantt의 QA는 초과. 타당한 해석은?</h2>
+    <div class="options">
+      <div class="opt"><input id="g2a1" type="radio" name="g2" value="1"><label for="g2a1">① 초기 지연은 정상</label></div>
+      <div class="opt"><input id="g2a2" type="radio" name="g2" value="2"><label for="g2a2">② 기술부하 영향</label></div>
+      <div class="opt"><input id="g2a3" type="radio" name="g2" value="3"><label for="g2a3">③ 개발 진척 저조 & QA 미착수 → 일정 위험</label></div>
+      <div class="opt"><input id="g2a4" type="radio" name="g2" value="4"><label for="g2a4">④ 일정 위험과 무관</label></div>
+    </div>
+    <div class="actions"><button class="btn" id="submitG2">제출</button></div>
+    <div class="hint">정답: Burndown 악화 + Gantt 지연 → <b>③ 일정 위험</b>.</div>
+  </section>
+ 
+  <!-- GATE 3 -->
+  <section id="gate3" class="gate locked" style="display:none;">
+    <div><b>Gate 3.</b> 변경관리 절차 순서</div>
+    <h2>다음 절차를 올바른 순서로 배열하시오.</h2>
+    <ol id="sortable" style="padding:0;list-style:none;">
+      <li draggable="true" data-id="1">① 영향도 분석</li>
+      <li draggable="true" data-id="2">② CCB 승인</li>
+      <li draggable="true" data-id="3">③ 변경 요청 등록</li>
+      <li draggable="true" data-id="4">④ 반영 및 공지</li>
+    </ol>
+    <div class="actions"><button class="btn" id="submitG3">최종 제출</button></div>
+    <div class="hint">정답: <b>3 → 1 → 2 → 4</b></div>
+  </section>
+</main>
+ 
+<div class="result-strip">
+  <span class="pill">Gate1: <b id="s1">대기</b></span>
+  <span class="pill">Gate2: <b id="s2">잠김</b></span>
+  <span class="pill">Gate3: <b id="s3">잠김</b></span>
+</div>
+ 
+ <div id="success" class="modal">
     <div class="modal-card">
       <h3 class="ok">🎉 모든 관문 통과! 데몬 헌터스, 미션 클리어</h3>
       <p class="sub">세 문제 모두 정답입니다. PM의 정석 획득!🎁 </p>
@@ -195,158 +147,82 @@ footer{text-align:center; color:#6b7280; font-size:14px; padding:26px 0 20px}
       <button class="btn" id="goHome" style="background:#111">본선 진출하기</button>
     </div>
   </div>
-
-  <div id="fail" class="modal">
-    <div class="modal-card">
-      <h3 class="fail">❌ 탈락… 데몬의 함정에 걸렸습니다</h3>
-      <p class="sub">오답 1회로 미션 실패. 다시 도전해보시겠어요?</p>
-      <button class="btn" id="againFail">다시 도전</button>
-      <button class="btn" id="goHome2" style="background:#111">🏠 Home으로 돌아가기</button>
-    </div>
+ 
+<div id="fail" class="modal">
+  <div class="modal-card">
+    <h3>❌ 오답!</h3>
+    <button class="btn" id="againFail">다시 시도</button>
   </div>
-
-  <footer>ⓒ LG Electronics · Software College — Demon Hunters: Escape the Project Chaos</footer>
-
+</div>
+ 
 <script>
-/* --------- STATE --------- */
-const answers = { g1:'2', g2:'3', g3:['3','1','2','4'] };
-let currentGate = 1;
-const totalGates = 3;
-
-/* --------- PROGRESS BAR --------- */
-const bar = document.getElementById('bar');
-function updateBar(){ const pct = ((currentGate-1)/totalGates)*100; bar.style.width = pct + '%'; }
-
-/* --------- AUDIO UPLOAD/PLAY (Gate1) --------- */
-const fileInput = document.getElementById('audioFile');
-const playBtn   = document.getElementById('playAudio');
-const player    = document.getElementById('player');
-playBtn.addEventListener('click', ()=>{
-  const file = fileInput.files?.[0];
-  if(!file){ alert('듣기평가 파일을 업로드하세요 (선택 사항).'); return; }
-  const url = URL.createObjectURL(file);
-  player.src = url; player.style.display='block'; player.play();
-});
-
-/* --------- HELPERS --------- */
-function show(el){ el.style.display='block'; }
-function hide(el){ el.style.display='none'; }
-function lockGate(section){ section.classList.add('locked'); }
-function unlockGate(section){ section.classList.remove('locked'); }
-function markStatus(idx, text, ok=false){
-  const el = document.getElementById('s'+idx);
-  el.textContent = text;
-  el.style.color = ok ? '#10893e' : (text==='오답'?'#b80000':'');
-}
-
-/* --------- FAIL / SUCCESS --------- */
-const modalSuccess = document.getElementById('success');
-const modalFail    = document.getElementById('fail');
-function launchConfetti(){
-  for(let i=0;i<90;i++){
-    const s = document.createElement('div');
-    s.style.position='fixed';
-    s.style.left=Math.random()*100+'vw';
-    s.style.top='-10vh';
-    s.style.width=s.style.height=(Math.random()*8+6)+'px';
-    s.style.background=`hsl(${Math.random()*360}, 85%, 60%)`;
-    s.style.borderRadius=Math.random()>.5?'2px':'50%';
-    s.style.transform=`rotate(${Math.random()*360}deg)`;
-    s.style.animation=`confettiFall ${Math.random()*1.2+1.8}s ease-out forwards`;
-    s.style.pointerEvents='none';
-    document.body.appendChild(s);
-    setTimeout(()=> s.remove(), 2600);
+document.addEventListener('DOMContentLoaded',()=>{
+  const answers={g1:'2',g2:'3',g3:['3','1','2','4']};
+  let currentGate=1,totalGates=3;
+  const bar=document.getElementById('bar');
+  const show=e=>e.style.display='block';
+  const hide=e=>e.style.display='none';
+  const unlock=e=>e.classList.remove('locked');
+  const mark=(i,t,ok=false)=>{const e=document.getElementById('s'+i);e.textContent=t;e.style.color=ok?'#10893e':(t==='오답'?'#b80000':'');};
+  const updateBar=()=>bar.style.width=((currentGate-1)/totalGates*100)+'%';
+  updateBar();
+ 
+  document.getElementById('submitG1').addEventListener('click',()=>{
+    const c=document.querySelector('input[name="g1"]:checked');
+    if(!c){alert('보기를 선택하세요.');return;}
+    if(c.value===answers.g1){
+      mark(1,'통과',true);
+      document.querySelector('#gate1 .hint').style.display='block';
+      const g2=document.getElementById('gate2');
+      show(g2);unlock(g2);mark(2,'대기');currentGate=2;updateBar();
+      g2.scrollIntoView({behavior:'smooth'});
+    }else{mark(1,'오답');document.getElementById('fail').style.display='grid';}
+  });
+ 
+  document.getElementById('submitG2').addEventListener('click',()=>{
+    const c=document.querySelector('input[name="g2"]:checked');
+    if(!c){alert('보기를 선택하세요.');return;}
+    if(c.value===answers.g2){
+      mark(2,'통과',true);
+      document.querySelector('#gate2 .hint').style.display='block';
+      const g3=document.getElementById('gate3');
+      show(g3);unlock(g3);mark(3,'대기');currentGate=3;updateBar();
+      g3.scrollIntoView({behavior:'smooth'});
+    }else{mark(2,'오답');document.getElementById('fail').style.display='grid';}
+  });
+ 
+  const list=document.getElementById('sortable');
+  let dragging=null;
+  list.addEventListener('dragstart',e=>{if(e.target.tagName==='LI'){dragging=e.target;e.target.classList.add('dragging');}});
+  list.addEventListener('dragend',()=>{if(dragging){dragging.classList.remove('dragging');dragging=null;}});
+  list.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const after=getAfter(list,e.clientY);
+    const d=document.querySelector('.dragging');
+    if(!d)return;
+    if(!after)list.appendChild(d);else list.insertBefore(d,after);
+  });
+  function getAfter(c,y){
+    const els=[...c.querySelectorAll('li:not(.dragging)')];
+    return els.reduce((closest,child)=>{
+      const box=child.getBoundingClientRect();
+      const offset=y-box.top-box.height/2;
+      if(offset<0&&offset>closest.offset)return{offset,element:child};
+      else return closest;
+    },{offset:Number.NEGATIVE_INFINITY}).element;
   }
-}
-function fail(){ modalFail.style.display='grid'; }
-function success(){ modalSuccess.style.display='grid'; launchConfetti(); }
-
-/* --------- GATE 1 --------- */
-document.getElementById('submitG1').addEventListener('click', ()=>{
-  const checked = document.querySelector('input[name="g1"]:checked');
-  if(!checked){ alert('보기를 선택하세요.'); return; }
-  if(checked.value === answers.g1){
-    markStatus(1,'통과', true);
-    currentGate = 2; updateBar();
-    const g2 = document.getElementById('gate2');
-    show(g2); unlockGate(g2); markStatus(2,'대기');
-    document.querySelector('#gate1 .hint').style.display='block';
-  }else{ markStatus(1,'오답'); fail(); }
+  document.getElementById('submitG3').addEventListener('click',()=>{
+    const order=[...list.querySelectorAll('li')].map(li=>li.dataset.id);
+    if(JSON.stringify(order)===JSON.stringify(answers.g3)){
+      mark(3,'통과',true);
+      document.querySelector('#gate3 .hint').style.display='block';
+      document.getElementById('success').style.display='grid';
+    }else{mark(3,'오답');document.getElementById('fail').style.display='grid';}
+  });
+  document.getElementById('againSuccess').addEventListener('click',()=>location.reload());
+  document.getElementById('againFail').addEventListener('click',()=>document.getElementById('fail').style.display='none');
 });
-
-/* --------- GATE 2 --------- */
-document.getElementById('submitG2').addEventListener('click', ()=>{
-  const checked = document.querySelector('input[name="g2"]:checked');
-  if(!checked){ alert('보기를 선택하세요.'); return; }
-  if(checked.value === answers.g2){
-    markStatus(2,'통과', true);
-    currentGate = 3; updateBar();
-    const g3 = document.getElementById('gate3');
-    show(g3); unlockGate(g3); markStatus(3,'대기');
-    document.querySelector('#gate2 .hint').style.display='block';
-  }else{ markStatus(2,'오답'); fail(); }
-});
-
-/* --------- GATE 3: Drag & Drop Ordering --------- */
-const list = document.getElementById('sortable');
-let draggingEl = null;
-
-list.addEventListener('dragstart', (e)=>{
-  if(e.target.tagName.toLowerCase()==='li'){ draggingEl = e.target; e.target.classList.add('dragging'); }
-});
-list.addEventListener('dragend', (e)=>{
-  if(draggingEl){ draggingEl.classList.remove('dragging'); draggingEl = null; }
-});
-list.addEventListener('dragover', (e)=>{
-  e.preventDefault();
-  const afterEl = getDragAfterElement(list, e.clientY);
-  const dragging = document.querySelector('.dragging');
-  if(!dragging) return;
-  if(afterEl == null){ list.appendChild(dragging); }
-  else { list.insertBefore(dragging, afterEl); }
-});
-function getDragAfterElement(container, y){
-  const els = [...container.querySelectorAll('li:not(.dragging)')];
-  return els.reduce((closest, child)=>{
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height/2;
-    if(offset < 0 && offset > closest.offset){ return { offset, element: child }; }
-    else return closest;
-  }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
-
-document.getElementById('submitG3').addEventListener('click', ()=>{
-  const order = [...list.querySelectorAll('li')].map(li => li.dataset.id);
-  const ok = JSON.stringify(order) === JSON.stringify(answers.g3);
-  if(ok){
-    markStatus(3,'통과', true);
-    currentGate = 4; updateBar();
-    document.querySelector('#gate3 .hint').style.display='block';
-    success();
-  }else{ markStatus(3,'오답'); fail(); }
-});
-
-/* --------- RESET / NAV --------- */
-function resetAll(){
-  document.querySelectorAll('input[type="radio"]').forEach(r=> r.checked=false);
-  currentGate = 1; updateBar();
-  markStatus(1,'대기'); markStatus(2,'잠김'); markStatus(3,'잠김');
-  hide(document.getElementById('gate2')); hide(document.getElementById('gate3'));
-  document.getElementById('gate2').classList.add('locked');
-  document.getElementById('gate3').classList.add('locked');
-  document.querySelectorAll('.hint').forEach(h => h.style.display='none');
-  document.getElementById('success').style.display='none';
-  document.getElementById('fail').style.display='none';
-  window.scrollTo({ top: 0, behavior:'smooth' });
-}
-document.getElementById('againSuccess').addEventListener('click', resetAll);
-document.getElementById('againFail').addEventListener('click', resetAll);
-document.getElementById('goHome').addEventListener('click', ()=> location.href='pmcfinal.html');
-document.getElementById('goHome2').addEventListener('click', ()=> location.href='index.html');
-
-/* init */
-updateBar();
-document.querySelectorAll('.hint').forEach(h => h.style.display='none');
 </script>
+ 
 </body>
 </html>
