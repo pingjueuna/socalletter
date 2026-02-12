@@ -1,1 +1,260 @@
-ㅇㅇㅇ
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS re:Cap | LG전자 x AWS</title>
+
+<style>
+  :root{
+    --navy:#0f1e3a;
+    --navy-hover:#162a4f;
+    --navy-light:#1f3766;
+    --bg-soft:#f4f6fa;
+    --line:#e2e5ec;
+  }
+
+  body{
+    margin:0;
+    background:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",
+      "Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif;
+    color:#222;
+    line-height:1.7;
+  }
+
+  .container{
+    max-width:820px;
+    margin:0 auto;
+    padding:0 20px 60px;
+  }
+
+  /* ✅ HERO: 이미지는 유지 + 아래쪽이 더 어두운 그라데이션 */
+  .hero{
+    margin:0 -20px;
+    height:340px;
+    position:relative;
+    background-image:url("https://raw.githubusercontent.com/pingjueuna/socalletter/main/20260212/awsrecap.PNG");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    overflow:hidden;
+  }
+
+  /* 🔥 하단을 더 어둡게: 이미지 속 큰 글씨(하단 좌측)와의 충돌을 깔끔하게 */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(8,16,34,.08) 0%,
+        rgba(8,16,34,.10) 40%,
+        rgba(8,16,34,.35) 75%,
+        rgba(8,16,34,.62) 100%
+      );
+    pointer-events:none;
+  }
+
+  /* ✅ 텍스트를 "하단 왼쪽"에 고정 */
+  .hero-inner{
+    position:relative;
+    z-index:1;
+    max-width:820px;
+    height:100%;
+    margin:0 auto;
+    padding:20px;             /* 기존 본문과 동일한 패딩 */
+    display:flex;
+    align-items:flex-end;      /* 아래 정렬 */
+    justify-content:flex-start;/* 왼쪽 정렬 */
+  }
+
+  /* ✅ 이미지 글씨를 덮는 박스: 넓이/톤 조절 가능 */
+  .hero-text{
+    width:100%;
+    max-width:560px;
+    padding:18px 20px;
+    border-radius:10px;
+    background:linear-gradient(135deg, rgba(8,16,34,.88), rgba(8,16,34,.62));
+    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow:0 12px 30px rgba(0,0,0,.32);
+  }
+
+  h1{
+    font-size:32px;
+    font-weight:700;
+    margin:0 0 8px;
+    color:#fff;
+    letter-spacing:-.02em;
+    line-height:1.25;
+  }
+
+  .sub{
+    font-size:18px;
+    color:rgba(255,255,255,.92);
+    margin:0 0 6px;
+  }
+
+  .meta{
+    font-size:14px;
+    color:rgba(255,255,255,.75);
+    margin:0;
+  }
+
+  h2{
+    font-size:22px;
+    font-weight:700;
+    margin:40px 0 18px;
+    border-bottom:2px solid var(--navy);
+    padding-bottom:8px;
+  }
+
+  p{
+    font-size:16px;
+    margin:0 0 16px;
+  }
+
+  blockquote{
+    font-size:16px;
+    background:var(--bg-soft);
+    padding:20px;
+    border-left:4px solid var(--navy-light);
+    margin:26px 0 30px;
+    color:#333;
+  }
+
+  .info-box{
+    background:var(--bg-soft);
+    padding:22px;
+    border:1px solid #e3e6ee;
+    margin-bottom:22px;
+  }
+
+  .info-box ul{ padding-left:20px; margin:0; }
+  .info-box li{ font-size:16px; margin-bottom:8px; }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:16px;
+  }
+
+  th, td{
+    border:1px solid var(--line);
+    padding:12px;
+    text-align:left;
+    vertical-align:top;
+  }
+
+  th{
+    background:#f0f2f7;
+    font-weight:700;
+  }
+
+  .btn{
+    display:inline-block;
+    margin-top:26px;
+    padding:14px 28px;
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
+    background:var(--navy);
+    border-radius:4px;
+    text-decoration:none;
+    transition:.2s ease;
+  }
+
+  .btn:hover{ background:var(--navy-hover); }
+
+  .footer{
+    margin-top:48px;
+    font-size:14px;
+    color:#777;
+    border-top:1px solid #ddd;
+    padding-top:16px;
+  }
+
+  @media (max-width:520px){
+    .hero{height:260px;}
+    .hero-inner{padding:16px;}
+    .hero-text{max-width:100%;}
+    h1{font-size:26px;}
+    .sub{font-size:16px;}
+  }
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>AWS re:Cap</h1>
+      <p class="sub">LG전자 x AWS: AI로 그리는 Next Chapter</p>
+      <p> </p>
+    </div>
+  </div>
+</div>
+
+<!-- BODY (밑에 부분 그대로 유지) -->
+<div class="container">
+
+  <blockquote>
+    “우리는 지금 AI로 인한 혁신의 폭발적인 성장을 목격하고 있습니다.
+    모든 고객 경험과 기업, 그리고 솔직하게 말씀드리면 모든 산업이
+    지금 이 순간 근본적으로 재창조되고 있습니다.”
+    <br><br>
+    — 앤 가먼, AWS CEO
+  </blockquote>
+
+  <h2>교육 안내</h2>
+
+  <div class="info-box">
+    <ul>
+      <li><strong>교육 과정:</strong> AWS AI x re:invent re:Cap</li>
+      <li><strong>교육 기간:</strong> 3월 6일(금)</li>
+      <li><strong>강의 시간:</strong> 오후 1시 입장 · 오후 1시 30분 ~ 4시 30분</li>
+      <li><strong>교육 장소:</strong> LG 사이언스파크 지하1층 오디토리움</li>
+      <li><strong>신청:</strong> EP-Learning · AWS AI x re:invent re:Cap</li>
+    </ul>
+  </div>
+
+  <p>
+    AWS 최신 AI Agent 기술과 적용 사례와 함께, LG전자 비즈니스에 꼭 필요한
+    AWS Core Service의 주요 업데이트 사항을 확인할 수 있습니다.
+    AWS 전문가와 함께 최신 기술/성공 사례를 살펴보며,
+    미래 비즈니스 시장을 선도할 수 있는 실질적인 적용 방법을 논의할 수 있는 자리입니다.
+  </p>
+
+  <h2>Agenda</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:180px;">시간</th>
+        <th>Agenda Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1:00pm - 1:30pm</td><td>등록</td></tr>
+      <tr><td>1:30pm - 1:45pm</td><td>Opening</td></tr>
+      <tr><td>1:45pm - 2:25pm</td><td>Agentic·Physical AI 시대, LG전자를 위한 2026 AWS 기술 로드맵</td></tr>
+      <tr><td>2:25pm - 2:55pm</td><td>LG전자 AI Agent 구현 전략: AWS 기반 Code Assistant Use Case와 방법론</td></tr>
+      <tr><td>2:55pm - 3:10pm</td><td>Break Time</td></tr>
+      <tr><td>3:10pm - 3:40pm</td><td>퍼스널별 AI 활용법: Quick Suite &amp; Kiro 실전 가이드</td></tr>
+      <tr><td>3:40pm - 4:10pm</td><td>AI가 운영합니다. Frontier Agent로 완성하는 AIOps Workflow 완벽가이드</td></tr>
+      <tr><td>4:10pm - 4:25pm</td><td>Closing</td></tr>
+    </tbody>
+  </table>
+
+  <a class="btn" href="#" target="_blank" rel="noreferrer">교육 신청하기</a>
+
+  <div class="footer">LG전자 CTO SW센터 × AWS</div>
+</div>
+
+</body>
+</html>
